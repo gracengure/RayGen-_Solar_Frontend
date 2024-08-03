@@ -1,4 +1,4 @@
-
+import SignUp from "./Components/Signup"
 function App() {
   
   return (
