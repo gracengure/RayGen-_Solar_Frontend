@@ -8,11 +8,11 @@ const HomePage = () => {
     <div className="page-wrapper">
       <nav className="nav">
         <div className="nav-logo">
-          <img src="path-to-your-logo.png" alt="RayGen Solar Solutions" className="logo-image" />
+          <img  alt="RayGen Solar Solutions" className="logo-image" />
         </div>
         <ul className="nav-menu">
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/home">Home</Link>
           </li>
           <li>
             <Link to="/">Products</Link>
