@@ -1,7 +1,13 @@
 import React ,{useState,useEffect} from 'react';
 import ProductsPage from "./Components/ProductsPage";
 
+
+
+import { Route, Routes } from 'react-router-dom';
 import HomePage from './Components/HomePage';
+import Signup from './Components/Auth/Signup.jsx';
+import Login from './Components/Auth/Login.jsx';
+
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -63,14 +69,13 @@ function App() {
   }
 
   return (
-    <>
-    <HomePage cartCount={cartCount} />
-    <ProductsPage
-    products={products}
-    addToCart={addToCart}
-    
-  />
-  </>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/login" element={<Login />} />
+
+      
+    </Routes>
   );
 }
 
