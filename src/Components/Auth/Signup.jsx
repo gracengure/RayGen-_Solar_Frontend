@@ -20,7 +20,7 @@ const SignUp = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    role: '',
+    // role: '',
     phone_number: '',
     password: '',
     repeatPassword: '',
@@ -32,7 +32,7 @@ const SignUp = () => {
   const [formErrors, setFormErrors] = useState({
     name: false,
     email: false,
-    role: false,
+    // role: false,
     phone_number: false,
     password: false,
     repeatPassword: false,
@@ -56,7 +56,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const requiredFields = ['name', 'email', 'role', 'phone_number', 'password', 'repeatPassword'];
+    const requiredFields = ['name', 'email', 'phone_number', 'password', 'repeatPassword'];
     let hasError = false;
     const newFormErrors = { ...formErrors };
 
@@ -116,7 +116,7 @@ const SignUp = () => {
     const user = {
       name: formData.name,
       password: formData.password,
-      role: formData.role,
+      // role: formData.role,
       email: formData.email,
       phone_number: formData.phone_number
     };
@@ -173,66 +173,11 @@ const SignUp = () => {
           {showSignInForm ? (
             <Box sx={styles.formContainer}>
               <form onSubmit={handleSubmit}>
-                <TextField 
-                  label="Name" 
-                  variant="outlined" 
-                  fullWidth 
-                  margin="normal" 
-                  name="name" 
-                  value={formData.name} 
-                  onChange={handleInputChange} 
-                  required 
-                  error={formErrors.name} 
-                  autoComplete="name" 
-                />
-                <TextField 
-                  label="Email" 
-                  variant="outlined" 
-                  fullWidth 
-                  margin="normal" 
-                  name="email" 
-                  value={formData.email} 
-                  onChange={handleInputChange} 
-                  required 
-                  error={formErrors.email} 
-                  autoComplete="email" 
-                />
-                <TextField 
-                  label="Role" 
-                  variant="outlined" 
-                  fullWidth 
-                  margin="normal" 
-                  name="role" 
-                  value={formData.role} 
-                  onChange={handleInputChange} 
-                  required 
-                  error={formErrors.role} 
-                  autoComplete="organization-title" 
-                />
-                <TextField 
-                  label="Phone Number" 
-                  variant="outlined" 
-                  fullWidth 
-                  margin="normal" 
-                  name="phone_number" 
-                  value={formData.phone_number} 
-                  onChange={handleInputChange} 
-                  required 
-                  error={formErrors.phone_number} 
-                  autoComplete="tel" 
-                />
-                <TextField 
-                  label="Password" 
-                  variant="outlined" 
-                  fullWidth 
-                  margin="normal" 
-                  name="password" 
-                  type={formData.showPassword ? "text" : "password"} 
-                  value={formData.password} 
-                  onChange={handleInputChange} 
-                  required 
-                  error={formErrors.password} 
-                  autoComplete="new-password" 
+                <TextField label="Name" variant="outlined" fullWidth margin="normal" name="name" value={formData.name} onChange={handleInputChange} required error={formErrors.name} autoComplete="name" />
+                <TextField label="Email" variant="outlined" fullWidth margin="normal" name="email" value={formData.email} onChange={handleInputChange} required error={formErrors.email} autoComplete="email" />
+                {/* <TextField label="Role" variant="outlined" fullWidth margin="normal" name="role" value={formData.role} onChange={handleInputChange} required error={formErrors.role} autoComplete="organization-title" /> */}
+                <TextField label="Phone Number" variant="outlined" fullWidth margin="normal" name="phone_number" value={formData.phone_number} onChange={handleInputChange} required error={formErrors.phone_number} autoComplete="tel"/>
+                <TextField label="Password" variant="outlined" fullWidth margin="normal" name="password" type={formData.showPassword ? "text" : "password"} value={formData.password} onChange={handleInputChange} required error={formErrors.password} autoComplete="new-password" 
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -243,18 +188,7 @@ const SignUp = () => {
                     )
                   }}
                 />
-                <TextField 
-                  label="Repeat Password" 
-                  variant="outlined" 
-                  fullWidth 
-                  margin="normal" 
-                  name="repeatPassword" 
-                  type={formData.showRepeatPassword ? "text" : "password"} 
-                  value={formData.repeatPassword} 
-                  onChange={handleInputChange} 
-                  required 
-                  error={formErrors.repeatPassword} 
-                  autoComplete="new-password" 
+                <TextField label="Repeat Password" variant="outlined" fullWidth margin="normal" name="repeatPassword" type={formData.showRepeatPassword ? "text" : "password"} value={formData.repeatPassword} onChange={handleInputChange} required error={formErrors.repeatPassword} autoComplete="new-password" 
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -265,13 +199,7 @@ const SignUp = () => {
                     )
                   }}
                 />
-                <Button 
-                  variant="contained" 
-                  color="primary" 
-                  fullWidth 
-                  type="submit" 
-                  style={{ marginTop: '16px' }}
-                >
+                <Button variant="contained" color="primary" fullWidth type="submit" style={{ marginTop: '16px' }}>
                   Sign Up
                 </Button>
               </form>
@@ -285,11 +213,10 @@ const SignUp = () => {
               </div>
             </div>
           )}
-          <Snackbar
-            open={Boolean(successMessage || errorMessage)}
-            autoHideDuration={6000}
-            onClose={handleSnackbarClose}
-            message={successMessage || errorMessage}
+          <Typography variant="body2" style={{ marginTop: '15px' }}>
+            Already have an account? <Button onClick={() => navigate('/login')} color="primary">Login</Button>
+          </Typography>
+          <Snackbar open={Boolean(successMessage || errorMessage)} autoHideDuration={6000} onClose={handleSnackbarClose} message={successMessage || errorMessage}
             ContentProps={{
               style: {
                 backgroundColor: successMessage ? 'green' : 'red',
