@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ShoppingCart, AccountCircle } from '@mui/icons-material';
 import './Navbar.css';
 
-const HomePage = () => {
+const HomePage = ({ cartCount}) => {
   return (
     <div className="page-wrapper">
       <nav className="nav">
@@ -22,7 +22,8 @@ const HomePage = () => {
           </li>
           <li>
             <Link to="/cart">
-              <ShoppingCart className="nav-icon" />
+              <ShoppingCart className="nav-icon"  />
+              <span className="cart-count-badge">{cartCount}</span>
             </Link>
           </li>
           <li className="nav-item">
