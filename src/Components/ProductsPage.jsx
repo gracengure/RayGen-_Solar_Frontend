@@ -34,7 +34,7 @@ const ProductsPage = ({ products, addToCart }) => {
                   alt={product.name}
                 />
                 <div className="product-details">
-                  <p>Price: ${product.price}</p>
+                  <p>Price: Ksh{product.price}</p>
                   <p>In Stock: {product.stock_quantity}</p>
                   <button
                     className="add-to-cart-button"
