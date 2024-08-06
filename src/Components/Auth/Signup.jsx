@@ -29,6 +29,7 @@ const validationSchema = Yup.object({
     .required('Phone number is required'),
   password: Yup.string()
     .min(6, 'Password must be at least 6 characters long!')
+    .matches(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/, 'Password must include letters, numbers, and at least one special character (!@#$%^&*)')
     .required('Password is required'),
   repeatPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords must match!')
