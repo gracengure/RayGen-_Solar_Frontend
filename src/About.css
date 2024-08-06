@@ -1,0 +1,89 @@
+.about-page {
+  padding: 4rem;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-container h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-family: 'Arial', sans-serif; 
+}
+
+.intro-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.intro-container p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+}
+
+.intro-container:hover {
+  box-shadow: 0 0 20px rgba(43, 39, 32, 0.6);
+  transform: scale(1.02);
+}
+
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.about-section {
+  flex: 1;
+  min-width: 250px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 1rem;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.about-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-family: 'Arial', sans-serif; 
+}
+
+.about-section p,
+.about-section ul {
+  font-size: 1rem;
+  line-height: 1.6;
+  font-family: 'Arial', sans-serif; 
+}
+
+.about-section ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.about-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+.about-section:hover {
+  box-shadow: 0 0 20px rgba(36, 41, 36, 0.6);
+  transform: scale(1.02);
+}
+
+@media screen and (max-width: 768px) {
+  .about-content {
+    flex-direction: column;
+  }
+}
