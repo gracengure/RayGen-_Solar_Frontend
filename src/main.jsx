@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./Components/HomePage.jsx"
 import Signup from './Components/Auth/Signup.jsx';
 import Login from './Components/Auth/Login.jsx';
-
+import ProductsSpecs from "./Components/ProductsSpecs.jsx"
 const router = createBrowserRouter([
   {
     path: "*",
@@ -22,7 +22,11 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: < Signup/>,
-  }
+  },
+  {
+    path: "/product/:productId", 
+    element: <ProductsSpecs />, 
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
