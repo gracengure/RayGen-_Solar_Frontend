@@ -9,8 +9,10 @@ import {
   FormControl,
   InputLabel,
   Select,
-  Box
+  Box,
+  IconButton,
 } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Reviews({ productId }) {
   const [reviews, setReviews] = useState([]);
@@ -20,6 +22,7 @@ function Reviews({ productId }) {
   });
   const [userName, setUserName] = useState(""); // Assuming userName is required for the review
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [jwtToken, setJwtToken] = useState(localStorage.getItem('token')); // Fetch JWT from localStorage
 
   useEffect(() => {
     fetch(`http://127.0.0.1:5000/products/${productId}/reviews`)
@@ -47,9 +50,9 @@ function Reviews({ productId }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${jwtToken}`
       },
       body: JSON.stringify({
-        user_id: 1, // Replace with actual user ID or manage it dynamically
         product_id: productId,
         comments: newReview.comments,
         rating: newReview.rating,
@@ -57,7 +60,6 @@ function Reviews({ productId }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Optionally, add the new review to the state
         setReviews((prevReviews) => [
           ...prevReviews,
           {
@@ -80,6 +82,25 @@ function Reviews({ productId }) {
       );
   };
 
+  const handleDelete = (reviewId) => {
+    fetch(`http://127.0.0.1:5000/reviews/${reviewId}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${jwtToken}`
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          setReviews((prevReviews) =>
+            prevReviews.filter((review) => review.id !== reviewId)
+          );
+        } else {
+          console.error("Failed to delete review");
+        }
+      })
+      .catch((error) => console.error("Error deleting review:", error));
+  };
+
   return (
     <div className="reviews-container">
       <Typography variant="h5">Reviews:</Typography>
@@ -87,12 +108,17 @@ function Reviews({ productId }) {
         <Typography>No reviews available for this product.</Typography>
       ) : (
         reviews.map((review) => (
-          <div key={review.id} className="review">
-            <Typography variant="body1"><strong>{review.comments}</strong></Typography>
-            <Typography>
-              <StarRating rating={review.rating} />
-            </Typography>
-            <Typography variant="body2">{new Date(review.review_date).toLocaleDateString()} by {review.user_name}</Typography>
+          <div key={review.id} className="review" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <Typography variant="body1"><strong>{review.comments}</strong></Typography>
+              <Typography>
+                <StarRating rating={review.rating} />
+              </Typography>
+              <Typography variant="body2">{new Date(review.review_date).toLocaleDateString()} by {review.user_name}</Typography>
+            </div>
+            <IconButton onClick={() => handleDelete(review.id)} aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
           </div>
         ))
       )}

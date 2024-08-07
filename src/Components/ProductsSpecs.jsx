@@ -52,7 +52,7 @@ function ProductsSpecs() {
           </div>
         </div>
         <div className="reviews-container">
-          <Reviews productId={productId} />
+        <Reviews productId={product.id} />
         </div>
       </div>
     </div>

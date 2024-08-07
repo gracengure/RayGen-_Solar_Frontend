@@ -1,12 +1,9 @@
 import React ,{useState,useEffect} from 'react';
 import ProductsPage from "./Components/ProductsPage";
 
-
-
-
 import HomePage from './Components/HomePage';
-
-
+import Footer from "./Footer"
+import About from "./About"
 function App() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
@@ -74,6 +71,8 @@ function App() {
     addToCart={addToCart}
     
   />
+  <About/>
+  <Footer/>
   </>
   );
 }

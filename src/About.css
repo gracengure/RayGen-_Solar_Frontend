@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #89CFF0; /* Baby blue background color */
+}
+
+.about-card {
+  display: flex;
+  flex-direction: row;
+  max-width: 1400px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 16px;
+}
+
+.details-card {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-card {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: auto; /* Ensures the height adjusts based on the content */
+  margin-left: 16px; /* Adds a small margin to the left of the image card */
+}
+
+.about-image {
+  width: 100%;
+  height: 100%; /* Make the image take the full height of its container */
+  object-fit: cover; /* Ensures the image covers the container */
+  border-radius: 8px;
+}
+
+.about-title {
+  margin-bottom: 8px;
+}
+
+.about-intro {
+  margin-bottom: 16px;
+}
+
+.about-section {
+  margin-bottom: 16px;
+}
+
+.about-section h2 {
+  margin-bottom: 8px;
+}
+
+.about-section ul {
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.about-section li {
+  margin-bottom: 8px;
+}
