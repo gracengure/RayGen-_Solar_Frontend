@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Typography, Button, IconButton, Box, Snackbar, TextField, InputAdornment } from "@mui/material";
+import { Grid, Typography, Button, IconButton, Box, Snackbar, TextField, InputAdornment, Checkbox, FormControlLabel } from "@mui/material";
 import { ArrowBack as ArrowBackIcon, Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import ColorCode from "../../assets/WhatsApp Image 2024-08-07 at 07.38.21.jpg";
@@ -7,7 +7,7 @@ import Man from "../../assets/WhatsApp_Image_2024-08-07_at_07.38.21_2_-removebg-
 import LightCode from "../../assets/WhatsApp_Image_2024-08-07_at_07.38.21_1_-removebg-preview.png";
 
 const SignInForm = ({ handleClose }) => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ email: "", password: "", rememberMe: false });
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -16,6 +16,10 @@ const SignInForm = ({ handleClose }) => {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleCheckboxChange = (e) => {
+    setFormData({ ...formData, rememberMe: e.target.checked });
   };
 
   const validateForm = () => {
@@ -44,6 +48,7 @@ const SignInForm = ({ handleClose }) => {
     const body = JSON.stringify({
       email: formData.email,
       password: formData.password,
+      rememberMe: formData.rememberMe,
     });
 
     try {
@@ -83,10 +88,7 @@ const SignInForm = ({ handleClose }) => {
   };
 
   return (
-    <Box sx={{padding: 4,width: "30%",borderRadius: "8px", position: "absolute",top: "50%",left: "50%",transform: "translate(10%, -50%)", marginRight: '20px' }}>
-      {/* <IconButton onClick={handleClose} style={{ marginBottom: "1rem" }}>
-        <ArrowBackIcon />
-      </IconButton> */}
+    <Box sx={{ padding: 4, width: "30%", borderRadius: "8px", position: "absolute", top: "50%", left: "50%", transform: "translate(10%, -50%)", marginRight: '20px' }}>
       <Typography variant="h5" style={{ marginBottom: "1rem", textAlign: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
         Welcome
       </Typography>
@@ -112,6 +114,11 @@ const SignInForm = ({ handleClose }) => {
               borderRadius: '20px'
             }
           }}
+        />
+        <FormControlLabel
+          control={<Checkbox checked={formData.rememberMe} onChange={handleCheckboxChange} name="rememberMe" />}
+          label="Remember Me"
+          sx={{ display: "block", textAlign: "left", marginBottom: "1rem" }}
         />
         <Link to="/forgot-password" style={{ textDecoration: "none", color: "black", display: "block", textAlign: "right", marginBottom: "1rem" }}>
           Forgot your password?
