@@ -8,6 +8,7 @@ import Signup from './Components/Auth/Signup.jsx';
 import Login from './Components/Auth/Login.jsx';
 import ProductsSpecs from "./Components/ProductsSpecs.jsx"
 import About from "./About.jsx";
+import UserProfile from "./Components/UserProfile.jsx";
 const router = createBrowserRouter([
   {
     path: "*",
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/about",
     element: <About />,
+  },
+  {
+    path: "/profile",
+    element: <UserProfile />,
   },
   
 ]);
