@@ -1,14 +1,20 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ShoppingCart, AccountCircle } from '@mui/icons-material';
+import { ShoppingCart, AccountCircle, Menu } from '@mui/icons-material';
+import Sidebar from './SideBar'; 
 import './Navbar.css';
 import { FaCaretDown } from 'react-icons/fa';
 
 const HomePage = ({ cartCount }) => {
   const [isDropdown, setIsDropdown] = useState(false);
-  function toggleDown() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  function toggleDropdown() {
     setIsDropdown(!isDropdown);
+  }
+
+  function toggleSidebar() {
+    setIsSidebarOpen(!isSidebarOpen);
   }
 
   return (
@@ -23,7 +29,7 @@ const HomePage = ({ cartCount }) => {
           </li>
           <li className="navbar-categories">
             Products
-            <FaCaretDown onClick={toggleDown} />
+            <FaCaretDown onClick={toggleDropdown} />
             {isDropdown && (
               <ul className="dropdown">
                 <li><a href="#Solar Panel light">Solar Panel</a></li>
@@ -53,8 +59,11 @@ const HomePage = ({ cartCount }) => {
           </li>
         </ul>
       </nav>
+      <Menu className="sidebar-icon" onClick={toggleSidebar} />
+      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
       <main className="content">
         {/* Content goes here */}
+        <img src="/mnt/data/Screenshot from 2024-08-08 10-29-47.png" alt="Solar panels" className="hero-image" />
       </main>
     </div>
   );

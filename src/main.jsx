@@ -11,14 +11,10 @@ import Login from './Components/Auth/Login.jsx';
 import ProductsSpecs from "./Components/ProductsSpecs.jsx";
 import About from "./About.jsx";
 import UserProfile from "./Components/UserProfile.jsx";
+import CustomersPage from "./dashboard/UsersPage.jsx";
+import Sidebar from "./Components/SideBar.jsx";
+import Products from "./Components/Products.jsx";
 
-// Admin Dashboard Components
-import Dashboard from "./Components/Admin Dashboard/Dashboard.jsx";
-import Products from "./Components/Admin Dashboard/Products.jsx";
-import Orders from "./Components/Admin Dashboard/Orders.jsx";
-import Customers from "./Components/Admin Dashboard/Customers.jsx";
-import Home from "./Components/Admin Dashboard/Home.jsx"
-// Define the router configuration
 const router = createBrowserRouter([
   {
     path: "*",
@@ -49,27 +45,14 @@ const router = createBrowserRouter([
     element: <UserProfile />,
   },
   {
-    path: "/dashboard",
-    element: <Dashboard />,
-    children: [
-      {
-        path: "products",
-        element: <Products />,
-      },
-      {
-        path: "orders",
-        element: <Orders />,
-      },
-      {
-        path: "customers",
-        element: <Customers />,
-      },
-      {
-        path: "home",
-        element: <Home />,
-      },
-    ],
+    path: "/customer",
+    element: < CustomersPage />
   },
+  {
+    path: "/products",
+    element: < Products />
+  }
+  
 ]);
 
 // Render the application
