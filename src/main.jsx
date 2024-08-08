@@ -17,7 +17,7 @@ import Dashboard from "./Components/Admin Dashboard/Dashboard.jsx";
 import Products from "./Components/Admin Dashboard/Products.jsx";
 import Orders from "./Components/Admin Dashboard/Orders.jsx";
 import Customers from "./Components/Admin Dashboard/Customers.jsx";
-
+import Home from "./Components/Admin Dashboard/Home.jsx"
 // Define the router configuration
 const router = createBrowserRouter([
   {
@@ -63,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "customers",
         element: <Customers />,
+      },
+      {
+        path: "home",
+        element: <Home />,
       },
     ],
   },
