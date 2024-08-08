@@ -1,9 +1,9 @@
 import React ,{useState,useEffect} from 'react';
 import ProductsPage from "./Components/ProductsPage";
-
 import HomePage from './Components/HomePage';
 import Footer from "./Footer"
 import About from "./About"
+import Dashboard from './Components/Admin Dashboard/Dashboard';
 function App() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
@@ -73,6 +73,7 @@ function App() {
   />
   <About/>
   <Footer/>
+  <Dashboard/>
   </>
   );
 }
