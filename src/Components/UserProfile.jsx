@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, TextField, Button, Grid, Typography, Container, Box } from '@mui/material';
+import { Card, CardContent, TextField, Button, Grid, Typography, Container, Box, IconButton, InputAdornment } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
 const OuterCard = styled(Card)(({ theme }) => ({
@@ -43,6 +44,9 @@ const UserProfile = () => {
   });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -96,7 +100,7 @@ const UserProfile = () => {
         },
         body: JSON.stringify({
           name: userInfo.name,
-          address: userInfo.address,
+         
           phone: userInfo.phone,
           email: userInfo.email,
         }),
@@ -118,10 +122,10 @@ const UserProfile = () => {
       setError('Passwords do not match!');
       return;
     }
-
+  
     try {
       const response = await fetch('http://127.0.0.1:5000/user/change-password', {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
@@ -129,9 +133,10 @@ const UserProfile = () => {
         body: JSON.stringify({
           currentPassword: userInfo.currentPassword,
           newPassword: userInfo.newPassword,
+          confirmPassword: userInfo.confirmPassword, // Make sure this is also sent if needed
         }),
       });
-
+  
       if (response.ok) {
         setSuccessMessage('Password changed successfully!');
       } else {
@@ -140,6 +145,22 @@ const UserProfile = () => {
       }
     } catch (error) {
       setError('Error changing password.');
+    }
+  };
+  
+  const togglePasswordVisibility = (field) => {
+    switch (field) {
+      case 'currentPassword':
+        setShowCurrentPassword((prev) => !prev);
+        break;
+      case 'newPassword':
+        setShowNewPassword((prev) => !prev);
+        break;
+      case 'confirmPassword':
+        setShowConfirmPassword((prev) => !prev);
+        break;
+      default:
+        break;
     }
   };
 
@@ -218,32 +239,59 @@ const UserProfile = () => {
                   </Typography>
                   <TextField
                     label="Current Password"
-                    type="password"
+                    type={showCurrentPassword ? 'text' : 'password'}
                     name="currentPassword"
                     value={userInfo.currentPassword}
                     onChange={handleInputChange}
                     fullWidth
                     margin="normal"
                     sx={{ marginBottom: 2 }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={() => togglePasswordVisibility('currentPassword')}>
+                            {showCurrentPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                   />
                   <TextField
                     label="New Password"
-                    type="password"
+                    type={showNewPassword ? 'text' : 'password'}
                     name="newPassword"
                     value={userInfo.newPassword}
                     onChange={handleInputChange}
                     fullWidth
                     margin="normal"
                     sx={{ marginBottom: 2 }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={() => togglePasswordVisibility('newPassword')}>
+                            {showNewPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                   />
                   <TextField
                     label="Confirm Password"
-                    type="password"
+                    type={showConfirmPassword ? 'text' : 'password'}
                     name="confirmPassword"
                     value={userInfo.confirmPassword}
                     onChange={handleInputChange}
                     fullWidth
                     margin="normal"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={() => togglePasswordVisibility('confirmPassword')}>
+                            {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                   />
                   <Button
                     variant="contained"
