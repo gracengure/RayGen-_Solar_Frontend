@@ -1,0 +1,40 @@
+.customers-page {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.customers-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.customers-table th, .customers-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.customers-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.customers-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.delete-icon {
+    cursor: pointer;
+}

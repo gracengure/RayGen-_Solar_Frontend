@@ -9,6 +9,10 @@ import Login from './Components/Auth/Login.jsx';
 import ProductsSpecs from "./Components/ProductsSpecs.jsx"
 import About from "./About.jsx";
 import UserProfile from "./Components/UserProfile.jsx";
+import CustomersPage from "./dashboard/UsersPage.jsx";
+import Sidebar from "./Components/SideBar.jsx";
+import Products from "./Components/Products.jsx";
+
 const router = createBrowserRouter([
   {
     path: "*",
@@ -37,6 +41,14 @@ const router = createBrowserRouter([
     path: "/profile",
     element: <UserProfile />,
   },
+  {
+    path: "/customer",
+    element: < CustomersPage />
+  },
+  {
+    path: "/products",
+    element: < Products />
+  }
   
 ]);
 
