@@ -44,30 +44,34 @@ const SignInForm = ({ handleClose }) => {
       setError(formErrors);
       return;
     }
-
+  
     const endpoint = "http://127.0.0.1:5000/login/email";
     const body = JSON.stringify({
       email: formData.email,
       password: formData.password,
       rememberMe: formData.rememberMe,
     });
-
+  
     try {
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: body,
       });
-
+  
       if (response.ok) {
         const result = await response.json();
         localStorage.setItem("access_token", result.token);
         localStorage.setItem("role", result.role);
         localStorage.setItem("id", result.id);
         setSuccessMessage("User signed in successfully!");
-        setTimeout(() => {
+  
+        // Determine navigation based on role
+        if (result.role === "admin") {
+          navigate("/dashboard", { replace: true });
+        } else {
           navigate("/", { replace: true });
-        }, 3000);
+        }
       } else {
         const errorResult = await response.json();
         setError(errorResult.error || "Login failed. Please check your credentials.");
@@ -75,9 +79,10 @@ const SignInForm = ({ handleClose }) => {
     } catch (error) {
       setErrorMessage("Error: " + error.message);
     }
-
+  
     handleClose();
   };
+  
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
