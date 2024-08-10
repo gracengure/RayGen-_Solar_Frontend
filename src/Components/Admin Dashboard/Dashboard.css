@@ -58,11 +58,11 @@ body {
   /* Styles for the Products page */
 .products-container {
   padding: 20px;
-  height: calc(100vh - 64px); /* Adjust based on header height */
+  height: calc(100vh - 40px); /* Adjust based on header height */
   
   overflow: hidden; /* Hide scrollbar on the container */
-  background-color: #f5f5f5; /* Optional: add a background color for contrast */
-  width: 1300px;
+  background-color: #89CFF0; /* Optional: add a background color for contrast */
+  width: 1200px;
 }
 
 .table-container {
@@ -70,22 +70,51 @@ body {
   overflow-y: auto; /* Enable vertical scrolling within the table container */
 }
 
-/* Reduce row height and cell padding */
-.MuiTableRow-root {
- height: 20px; /* Adjust this value to reduce row height */
-}
-
-.MuiTableCell-root {
-  padding: 4px 8px; /* Adjust this value to reduce cell padding */
-  line-height: 0.5; /* Adjust this value to control line height */
-}
-
-/* Center text in the Stock Quantity column */
-.stock-quantity {
-  text-align: center;
-}
 
 .product-image {
   width: 50px;
   height: 50px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar {
+  margin-right: 10px; /* Adjust spacing between the search bar and the button */
+  width: 400px;
+  
+}
+
+/* .add-product-button {
+  white-space: nowrap;
+} */
+.table-header-cell {
+  font-weight: bold;
+  background-color: #89CFF0; /* Optional: Light gray background for header */
+  position: sticky;
+  top: 0; /* Ensure the header sticks to the top */
+  z-index: 1; /* Make sure it stays on top of other content */
+  
+  
+}
+.table-header-cell:nth-child(1),
+.table-header-cell:nth-child(2),
+.table-header-cell:nth-child(3),
+.table-header-cell:nth-child(4),
+.table-header-cell:nth-child(5) ,
+.table-header-cell:nth-child(6) {
+  color: navy;
+  font-weight: bold; /* Make header text bold */
+  font-size: larger;
+}
+.table-row {
+  background-color: #89CFF0; /* Baby blue color */
 }

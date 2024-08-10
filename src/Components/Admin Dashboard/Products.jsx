@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button
+  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, InputAdornment
 } from '@mui/material';
-import { Edit, Delete, Add } from '@mui/icons-material';
+import { Edit, Delete, Add, Search } from '@mui/icons-material';
 import './Dashboard.css'; // Import custom styles
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState('');
   const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [productForm, setProductForm] = useState({
     name: '',
@@ -17,31 +18,41 @@ const Products = () => {
     stock_quantity: '',
     functionality: ''
   });
+  const [newProductForm, setNewProductForm] = useState({
+    name: '',
+    image_url:'',
+    price: '',
+    category: '',
+    stock_quantity: '',
+    functionality: '',
+   
+  });
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:5000/products');
-        if (response.ok) {
-          const data = await response.json();
-          setProducts(data);
-        } else {
-          setError('Failed to fetch products.');
-        }
-      } catch (err) {
-        setError('Error fetching products.');
-      }
-    };
-
     fetchProducts();
   }, []);
+
+  const fetchProducts = async (category = '') => {
+    try {
+      const url = category ? `http://127.0.0.1:5000/products/category?category=${category}` : 'http://127.0.0.1:5000/products';
+      const response = await fetch(url);
+      if (response.ok) {
+        const data = await response.json();
+        setProducts(data);
+      } else {
+        setError('Failed to fetch products.');
+      }
+    } catch (err) {
+      setError('Error fetching products.');
+    }
+  };
 
   const handleEdit = (product) => {
     setSelectedProduct(product);
     setProductForm({
       name: product.name,
-      image_url:product.image_url,
+      image_url: product.image_url,
       price: product.price,
       category: product.category,
       stock_quantity: product.stock_quantity,
@@ -55,10 +66,22 @@ const Products = () => {
     setSelectedProduct(null);
   };
 
+  const handleCloseAddDialog = () => {
+    setAddDialogOpen(false);
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProductForm({
       ...productForm,
+      [name]: value
+    });
+  };
+
+  const handleNewProductInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewProductForm({
+      ...newProductForm,
       [name]: value
     });
   };
@@ -73,23 +96,23 @@ const Products = () => {
       },
       body: JSON.stringify(productForm)
     })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return response.text().then(text => { throw new Error(text) });
-      }
-    })
-    .then(() => {
-      setProducts(products.map(product => 
-        product.id === selectedProduct.id ? { ...product, ...productForm } : product
-      ));
-      handleCloseDialog();
-    })
-    .catch((error) => {
-      console.error("Error updating product:", error);
-      setError("Failed to update product: " + error.message);
-    });
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return response.text().then(text => { throw new Error(text) });
+        }
+      })
+      .then(() => {
+        setProducts(products.map(product =>
+          product.id === selectedProduct.id ? { ...product, ...productForm } : product
+        ));
+        handleCloseDialog();
+      })
+      .catch((error) => {
+        console.error("Error updating product:", error);
+        setError("Failed to update product: " + error.message);
+      });
   };
 
   const handleDelete = (productId) => {
@@ -101,97 +124,150 @@ const Products = () => {
         "Content-Type": "application/json"
       },
     })
-    .then((response) => {
-      if (response.ok) {
-        console.log("Product deleted successfully");
-        setProducts(products.filter(product => product.id !== productId));
-      } else {
-        return response.text().then(text => { throw new Error(text) });
-      }
-    })
-    .catch((error) => {
-      console.error("Error deleting product:", error);
-      setError("Failed to delete product: " + error.message);
-    });
+      .then((response) => {
+        if (response.ok) {
+          console.log("Product deleted successfully");
+          setProducts(products.filter(product => product.id !== productId));
+        } else {
+          return response.text().then(text => { throw new Error(text) });
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting product:", error);
+        setError("Failed to delete product: " + error.message);
+      });
   };
 
   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
+    const category = e.target.value;
+    setSearchTerm(category);
+    fetchProducts(category); // Fetch products based on the category search term
   };
 
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleAddProduct = () => {
+    const token = localStorage.getItem("access_token");
+    fetch('http://127.0.0.1:5000/products', {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newProductForm)
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return response.text().then(text => { throw new Error(text) });
+        }
+      })
+      .then(() => {
+        fetchProducts(); // Refetch the products list
+        handleCloseAddDialog();
+        setNewProductForm({
+          name: '',
+          image_url:'',
+          price: '',
+          category: '',
+          stock_quantity: '',
+          functionality: ''
+        }); // Clear the form
+      })
+      .catch((error) => {
+        console.error("Error adding product:", error);
+        setError("Failed to add product: " + error.message);
+      });
+  };
+  
+  
 
   return (
     <div className="products-container">
       <div className="header">
-      <Typography variant="h4" gutterBottom>
-        Products
-      </Typography>
-      <TextField
-  label="Search"
-  variant="outlined"
-  value={searchTerm}
-  onChange={handleSearchChange}
-  className="search-bar"
-  // Adjust width here
-/>
-
+        <Typography variant="h3" sx={{ color: 'navy' }} gutterBottom>
+          Products
+        </Typography>
+        <TextField
+          variant="outlined"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="search-bar"
+          placeholder="Search by Category ...."
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
+          sx={{
+            borderRadius: '10px', // Apply the border-radius here
+            '& fieldset': {
+              borderRadius: '50px', // Ensures the border of the input field has the radius
+            },
+          }}
+        />
         <Button
           variant="contained"
-          color="primary"
-          startIcon={<Add />}
           className="add-product-button"
+          onClick={() => setAddDialogOpen(true)}
+          sx={{
+            borderRadius: '20px', // Rounded corners
+            padding: '10px 20px', // Adjust padding for better appearance
+            backgroundColor: 'rgba(255, 255, 255, 0.2)', // White background with transparency
+            color: 'navy', // Text color set to navy
+            // No hover effect
+          }}
         >
-          Add Product
+          Add Product <Add />
         </Button>
       </div>
-      
+
       {error && <Typography color="error">{error}</Typography>}
       <TableContainer component={Paper} className="table-container">
         <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Image</TableCell>
-              <TableCell>Category</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Stock Quantity</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {filteredProducts.map((product) => (
-              <TableRow key={product.id}>
-                <TableCell>{product.name}</TableCell>
-                <TableCell>
-                  <img
-                    src={product.image_url}
-                    alt={product.name}
-                    className="product-image"
-                  />
-                </TableCell>
-                <TableCell>{product.category}</TableCell>
-                <TableCell>Ksh {product.price.toFixed(2)}</TableCell>
-                <TableCell className="stock-quantity">{product.stock_quantity}</TableCell>
-                <TableCell>
-                  <IconButton
-                    onClick={() => handleEdit(product)}
-                    sx={{ color: 'blue' }}
-                  >
-                    <Edit />
-                  </IconButton>
-                  <IconButton
-                    onClick={() => handleDelete(product.id)}
-                    sx={{ color: 'red' }}
-                  >
-                    <Delete />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+        <TableHead>
+  <TableRow>
+    <TableCell className="table-header-cell">Name</TableCell>
+    <TableCell className="table-header-cell">Image</TableCell>
+    <TableCell className="table-header-cell">Category</TableCell>
+    <TableCell className="table-header-cell">Price</TableCell>
+    <TableCell className="table-header-cell">Stock Quantity</TableCell>
+    <TableCell className="table-header-cell">Actions</TableCell>
+  </TableRow>
+</TableHead>
+<TableBody>
+  {products.map((product) => (
+    <TableRow key={product.id} className="table-row">
+      <TableCell>{product.name}</TableCell>
+      <TableCell>
+        <img
+          src={product.image_url}
+          alt={product.name}
+          className="product-image"
+        />
+      </TableCell>
+      <TableCell>{product.category}</TableCell>
+      <TableCell>Ksh {product.price.toFixed(2)}</TableCell>
+      <TableCell className="stock-quantity">{product.stock_quantity}</TableCell>
+      <TableCell>
+        <IconButton
+          onClick={() => handleEdit(product)}
+          sx={{ color: 'blue' }}
+        >
+          <Edit />
+        </IconButton>
+        <IconButton
+          onClick={() => handleDelete(product.id)}
+          sx={{ color: 'red' }}
+        >
+          <Delete />
+        </IconButton>
+      </TableCell>
+    </TableRow>
+  ))}
+</TableBody>
+
         </Table>
       </TableContainer>
       <Dialog open={editDialogOpen} onClose={handleCloseDialog}>
@@ -243,6 +319,66 @@ const Products = () => {
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancel</Button>
           <Button onClick={handleUpdate}>Update</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={addDialogOpen} onClose={handleCloseAddDialog}>
+        <DialogTitle>Add Product</DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            label="Name"
+            name="name"
+            value={newProductForm.name}
+            onChange={handleNewProductInputChange}
+            fullWidth
+          />
+          <TextField
+            margin="dense"
+            label="Image_url"
+            name="image_url"
+            value={newProductForm.image_url}
+            onChange={handleNewProductInputChange}
+            fullWidth
+          />
+          <TextField
+            margin="dense"
+            label="Price"
+            name="price"
+            type="number"
+            value={newProductForm.price}
+            onChange={handleNewProductInputChange}
+            fullWidth
+          />
+          <TextField
+            margin="dense"
+            label="Category"
+            name="category"
+            value={newProductForm.category}
+            onChange={handleNewProductInputChange}
+            fullWidth
+          />
+          <TextField
+            margin="dense"
+            label="Stock Quantity"
+            name="stock_quantity"
+            type="number"
+            value={newProductForm.stock_quantity}
+            onChange={handleNewProductInputChange}
+            fullWidth
+          />
+          <TextField
+            margin="dense"
+            label="Functionality"
+            name="functionality"
+            value={newProductForm.functionality}
+            onChange={handleNewProductInputChange}
+            fullWidth
+          />
+          
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseAddDialog}>Cancel</Button>
+          <Button onClick={handleAddProduct}>Add Product</Button>
         </DialogActions>
       </Dialog>
     </div>
