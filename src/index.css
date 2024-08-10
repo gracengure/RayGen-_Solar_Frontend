@@ -9,14 +9,13 @@ html {
 }
 
 :root {
-  background-color: rgb(239, 240, 237);
+  background-color: rgb(249, 249, 247);
 }
-/* Container for all products */
 .product-container {
   margin-top: 50px;
   display: flex;
   flex-direction: column; /* Align categories vertically */
-  align-items: flex-start; /* Align categories to the start of the container */
+  align-items: center; /* Align categories to the start of the container */
   margin-left: 100px;
   margin-right: 140px;
 }
@@ -31,6 +30,7 @@ html {
 .category-title {
   font-size: 1.5em;
   margin-bottom: 20px;
+
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
@@ -84,4 +84,76 @@ html {
   font-weight: bold;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   padding-top: 10px; /* Add padding above the details */
+}
+
+.container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  min-height: 100vh; /* Ensure it takes at least full viewport height */
+  padding: 20px; /* Add padding to prevent content from touching edges */
+  background-color: #f9f9f9; /* Optional: background color for the whole page */
+}
+
+.product-specs-card {
+  max-width: 500px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.product-specs-header {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.product-image {
+  max-width: 200px; /* Adjust as needed */
+  height: auto;
+  margin-right: 16px; /* Space between image and details */
+}
+
+.details-container {
+  flex: 1;
+}
+
+.product-name {
+  margin-bottom: 8px;
+}
+
+.property-spec {
+  margin-bottom: 8px;
+}
+
+.spec-label {
+  font-weight: bold;
+}
+
+.reviews-container {
+  
+  padding: 10px;
+}
+.review {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.review p {
+  margin: 5px 0;
+}
+
+.star-rating {
+  display: inline-block;
+  color: #fff01e; /* DodgerBlue color */
+}
+
+.star-rating .star {
+  font-size: 20px; /* Adjust size as needed */
+  margin-right: 2px; /* Adjust space between stars */
 }

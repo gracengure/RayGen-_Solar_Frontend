@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-
+import React from "react";
+import { Link } from "react-router-dom";
 // Helper function to group products by category
 const groupByCategory = (products) => {
   return products.reduce((categories, product) => {
@@ -28,13 +28,15 @@ const ProductsPage = ({ products, addToCart }) => {
             {categorizedProducts[category].map((product) => (
               <div key={product.id} className="product-card">
                 <h3 className="product-name">{product.name}</h3>
-                <img
-                  className="product-img"
-                  src={product.image_url}
-                  alt={product.name}
-                />
+                <Link to={`/product/${product.id}`}>
+            <img
+              className="product-img"
+              src={product.image_url}
+              alt={product.name}
+            />
+          </Link>
                 <div className="product-details">
-                  <p>Price: Ksh{product.price}</p>
+                  <p>Price: Ksh {product.price}</p>
                   <p>In Stock: {product.stock_quantity}</p>
                   <button
                     className="add-to-cart-button"

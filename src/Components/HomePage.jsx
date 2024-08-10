@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart, AccountCircle } from '@mui/icons-material';
@@ -32,7 +33,7 @@ const HomePage = ({ cartCount }) => {
             )}
           </li>
           <li>
-            <Link to="/">About</Link>
+            <Link to="/about">About</Link>
           </li>
           <li>
             <Link to="/cart">
