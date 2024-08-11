@@ -11,15 +11,14 @@ import Login from './Components/Auth/Login.jsx';
 import ProductsSpecs from "./Components/ProductsSpecs.jsx";
 import About from "./About.jsx";
 import UserProfile from "./Components/UserProfile.jsx";
-import Verification from "./Components/Auth/verification.jsx";
-import PrivateRoute from './privateRoute.jsx'; 
+import Verification from "./Components/Auth/verification.jsx"
 
+// Admin Dashboard Components
 import Dashboard from "./Components/Admin Dashboard/Dashboard.jsx";
 import Products from "./Components/Admin Dashboard/Products.jsx";
 import Orders from "./Components/Admin Dashboard/Orders.jsx";
 import Customers from "./Components/Admin Dashboard/Customers.jsx";
-import Home from "./Components/Admin Dashboard/Home.jsx";
-
+import Home from "./Components/Admin Dashboard/Home.jsx"
 // Define the router configuration
 const router = createBrowserRouter([
   {
@@ -52,19 +51,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: (
-      <PrivateRoute>
-        <UserProfile />
-      </PrivateRoute>
-    ),
+    element: <UserProfile />,
   },
   {
     path: "/dashboard",
-    element: (
-      <PrivateRoute>
-        <Dashboard />
-      </PrivateRoute>
-    ),
+    element: <Dashboard />,
     children: [
       {
         path: "products",

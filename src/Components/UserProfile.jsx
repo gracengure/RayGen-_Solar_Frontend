@@ -63,7 +63,7 @@ const UserProfile = () => {
           const data = await response.json();
           setUserInfo({
             name: data.name,
-            address: data.address, // Make sure to include address in your backend response if needed
+            address: data.address,
             phone: data.phone_number,
             email: data.email,
             currentPassword: '',
