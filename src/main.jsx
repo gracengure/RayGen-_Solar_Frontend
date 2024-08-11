@@ -1,20 +1,29 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
+
+// General Components
+import HomePage from "./Components/HomePage.jsx";
 
 // General Components
 import HomePage from "./Components/HomePage.jsx";
 import Signup from './Components/Auth/Signup.jsx';
 import Login from './Components/Auth/Login.jsx';
 import ProductsSpecs from "./Components/ProductsSpecs.jsx";
+import ProductsSpecs from "./Components/ProductsSpecs.jsx";
 import About from "./About.jsx";
 import UserProfile from "./Components/UserProfile.jsx";
-import CustomersPage from "./dashboard/UsersPage.jsx";
-import Sidebar from "./Components/SideBar.jsx";
-import Products from "./Components/Products.jsx";
 
+// Admin Dashboard Components
+import Dashboard from "./Components/Admin Dashboard/Dashboard.jsx";
+import Products from "./Components/Admin Dashboard/Products.jsx";
+import Orders from "./Components/Admin Dashboard/Orders.jsx";
+import Customers from "./Components/Admin Dashboard/Customers.jsx";
+
+// Define the router configuration
 const router = createBrowserRouter([
   {
     path: "*",
@@ -25,14 +34,19 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
+  },
+  {
     path: "/login",
     element: <Login />,
   },
   {
     path: "/signup",
     element: <Signup />,
+    element: <Signup />,
   },
   {
+    path: "/product/:productId",
+    element: <ProductsSpecs />,
     path: "/product/:productId",
     element: <ProductsSpecs />,
   },
@@ -45,17 +59,29 @@ const router = createBrowserRouter([
     element: <UserProfile />,
   },
   {
-    path: "/customer",
-    element: < CustomersPage />
+    path: "/dashboard",
+    element: <Dashboard />,
+    children: [
+      {
+        path: "products",
+        element: <Products />,
+      },
+      {
+        path: "orders",
+        element: <Orders />,
+      },
+      {
+        path: "customers",
+        element: <Customers />,
+      },
+    ],
   },
-  {
-    path: "/products",
-    element: < Products />
-  }
-  
 ]);
 
 // Render the application
+// Render the application
 ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider router={router} />
+  <RouterProvider router={router} />
 );
+
