@@ -1,8 +1,13 @@
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
-
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  background-color: #89CFF0; 
+}
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -47,11 +52,7 @@ body {
 
 
 
-.dashboard-container {
-  display: flex;
-  height: 100vh;
-  background-color: #89CFF0; 
-}
+
 
 /* Styles for the Products page */
 .products-container {

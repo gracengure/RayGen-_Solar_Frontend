@@ -114,27 +114,27 @@ const Products = () => {
       });
   };
 
-  const handleDelete = (productId) => {
+  const handleDelete = async (productId) => {
     const token = localStorage.getItem("access_token");
-    fetch(`http://127.0.0.1:5000/products/${productId}`, {
-      method: "DELETE",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("Product deleted successfully");
-          setProducts(products.filter(product => product.id !== productId));
-        } else {
-          return response.text().then(text => { throw new Error(text) });
-        }
-      })
-      .catch((error) => {
-        console.error("Error deleting product:", error);
-        setError("Failed to delete product: " + error.message);
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/products/${productId}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
       });
+  
+      if (response.ok) {
+        setProducts(products.filter(product => product.id !== productId));
+      } else {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage || 'Failed to delete product');
+      }
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      setError("Failed to delete product: " + error.message);
+    }
   };
 
   const handleSearchChange = (e) => {
@@ -301,15 +301,6 @@ const Products = () => {
           />
           <TextField
             margin="dense"
-            label="Price"
-            name="price"
-            type="number"
-            value={productForm.price}
-            onChange={handleInputChange}
-            fullWidth
-          />
-          <TextField
-            margin="dense"
             label="Category"
             name="category"
             value={productForm.category}
@@ -318,9 +309,16 @@ const Products = () => {
           />
           <TextField
             margin="dense"
+            label="Price"
+            name="price"
+            value={productForm.price}
+            onChange={handleInputChange}
+            fullWidth
+          />
+          <TextField
+            margin="dense"
             label="Stock Quantity"
             name="stock_quantity"
-            type="number"
             value={productForm.stock_quantity}
             onChange={handleInputChange}
             fullWidth
@@ -335,12 +333,16 @@ const Products = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleUpdate}>Update</Button>
+          <Button onClick={handleCloseDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleUpdate} color="primary">
+            Update
+          </Button>
         </DialogActions>
       </Dialog>
       <Dialog open={addDialogOpen} onClose={handleCloseAddDialog}>
-        <DialogTitle>Add Product</DialogTitle>
+        <DialogTitle>Add New Product</DialogTitle>
         <DialogContent>
           <TextField
             margin="dense"
@@ -360,15 +362,6 @@ const Products = () => {
           />
           <TextField
             margin="dense"
-            label="Price"
-            name="price"
-            type="number"
-            value={newProductForm.price}
-            onChange={handleNewProductInputChange}
-            fullWidth
-          />
-          <TextField
-            margin="dense"
             label="Category"
             name="category"
             value={newProductForm.category}
@@ -377,9 +370,16 @@ const Products = () => {
           />
           <TextField
             margin="dense"
+            label="Price"
+            name="price"
+            value={newProductForm.price}
+            onChange={handleNewProductInputChange}
+            fullWidth
+          />
+          <TextField
+            margin="dense"
             label="Stock Quantity"
             name="stock_quantity"
-            type="number"
             value={newProductForm.stock_quantity}
             onChange={handleNewProductInputChange}
             fullWidth
@@ -394,8 +394,12 @@ const Products = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseAddDialog}>Cancel</Button>
-          <Button onClick={handleAddProduct}>Add Product</Button>
+          <Button onClick={handleCloseAddDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleAddProduct} color="primary">
+            Add Product
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

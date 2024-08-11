@@ -3,12 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart, AccountCircle } from '@mui/icons-material';
 import './Navbar.css';
 import { FaCaretDown } from 'react-icons/fa';
-
 const HomePage = ({ cartCount }) => {
   const [isDropdown, setIsDropdown] = useState(false);
   const navigate = useNavigate();
   
-  function toggleDown() {
+  function toggleDropdown() {
     setIsDropdown(!isDropdown);
   }
 
@@ -37,7 +36,7 @@ const HomePage = ({ cartCount }) => {
           </li>
           <li className="navbar-categories">
             Products
-            <FaCaretDown onClick={toggleDown} />
+            <FaCaretDown onClick={toggleDropdown} />
             {isDropdown && (
               <ul className="dropdown">
                 <li><a href="#Solar Panel light">Solar Panel</a></li>
@@ -73,8 +72,10 @@ const HomePage = ({ cartCount }) => {
           </li>
         </ul>
       </nav>
+      
       <main className="content">
         {/* Content goes here */}
+       
       </main>
     </div>
   );

@@ -75,8 +75,8 @@ function App() {
   <About/>
   <Footer/>
  <Dashboard/>
-  </>
-  );
+  </>)
+  
 }
 
 export default App;
