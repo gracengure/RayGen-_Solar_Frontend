@@ -1,19 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 
-// General Components
-import HomePage from "./Components/HomePage.jsx";
+
 
 // General Components
 import HomePage from "./Components/HomePage.jsx";
 import Signup from './Components/Auth/Signup.jsx';
 import Login from './Components/Auth/Login.jsx';
 import ProductsSpecs from "./Components/ProductsSpecs.jsx";
-import ProductsSpecs from "./Components/ProductsSpecs.jsx";
+
 import About from "./About.jsx";
 import UserProfile from "./Components/UserProfile.jsx";
 
@@ -82,6 +80,6 @@ const router = createBrowserRouter([
 // Render the application
 ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider router={router} />
-  <RouterProvider router={router} />
+  
 );
 
