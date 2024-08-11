@@ -17,6 +17,7 @@ const HomePage = ({ cartCount }) => {
     localStorage.removeItem("role");
     localStorage.removeItem("id");
     localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem('cart');
     
     // Optionally redirect to the login page
     navigate("/login");

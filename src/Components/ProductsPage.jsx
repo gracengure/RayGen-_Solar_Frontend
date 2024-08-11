@@ -1,7 +1,6 @@
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import React from "react";
-import { Link } from "react-router-dom";
-// Helper function to group products by category
 const groupByCategory = (products) => {
   return products.reduce((categories, product) => {
     if (!categories[product.category]) {
@@ -13,7 +12,28 @@ const groupByCategory = (products) => {
 };
 
 const ProductsPage = ({ products, addToCart }) => {
-  // Group products by category
+  const navigate = useNavigate();
+  const [snackbar, setSnackbar] = useState({ visible: false, message: "" });
+
+  const handleAddToCart = (productId) => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+
+    if (isAuthenticated) {
+      addToCart(productId);
+      showSnackbar("Product has been added to cart");
+    } else {
+      navigate("/login");
+    }
+  };
+
+  // Function to show the snackbar with a message
+  const showSnackbar = (message) => {
+    setSnackbar({ visible: true, message });
+    setTimeout(() => {
+      setSnackbar({ visible: false, message: "" });
+    }, 3000);
+  };
+
   const categorizedProducts = groupByCategory(products);
 
   return (
@@ -21,7 +41,7 @@ const ProductsPage = ({ products, addToCart }) => {
       {Object.keys(categorizedProducts).map((category) => (
         <div
           key={category}
-          id={category.toLowerCase().replace(/\s+/g, '-')} // Create an id for the section
+          id={category.toLowerCase().replace(/\s+/g, "-")}
           className="category-section"
         >
           <h2 className="category-title">{category}</h2>
@@ -30,21 +50,23 @@ const ProductsPage = ({ products, addToCart }) => {
               <div key={product.id} className="product-card">
                 <h3 className="product-name">{product.name}</h3>
                 <Link to={`/product/${product.id}`}>
-            <img
-              className="product-img"
-              src={product.image_url}
-              alt={product.name}
-            />
-          </Link>
+                  <img
+                    className="product-img"
+                    src={product.image_url}
+                    alt={product.name}
+                  />
+                </Link>
                 <div className="product-details">
                   <p>Price: Ksh {product.price}</p>
                   <p>In Stock: {product.stock_quantity}</p>
                   <button
                     className="add-to-cart-button"
-                    onClick={() => addToCart(product.id)}
+                    onClick={() => handleAddToCart(product.id)}
                     disabled={product.stock_quantity === 0}
                   >
-                    {product.stock_quantity > 0 ? "Add to Cart" : "Out of Stock"}
+                    {product.stock_quantity > 0
+                      ? "Add to Cart"
+                      : "Out of Stock"}
                   </button>
                 </div>
               </div>
@@ -52,6 +74,10 @@ const ProductsPage = ({ products, addToCart }) => {
           </div>
         </div>
       ))}
+
+      {snackbar.visible && (
+        <div className="snackbar success">{snackbar.message}</div>
+      )}
     </div>
   );
 };

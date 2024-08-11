@@ -1,3 +1,4 @@
+// main.jsx
 
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -5,21 +6,22 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 
-// General Components
 import HomePage from "./Components/HomePage.jsx";
 import Signup from './Components/Auth/Signup.jsx';
 import Login from './Components/Auth/Login.jsx';
 import ProductsSpecs from "./Components/ProductsSpecs.jsx";
 import About from "./About.jsx";
 import UserProfile from "./Components/UserProfile.jsx";
-import Verification from "./Components/Auth/verification.jsx"
+import Verification from "./Components/Auth/verification.jsx";
+import Cart from "./Components/cart.jsx"; 
 
 // Admin Dashboard Components
 import Dashboard from "./Components/Admin Dashboard/Dashboard.jsx";
 import Products from "./Components/Admin Dashboard/Products.jsx";
 import Orders from "./Components/Admin Dashboard/Orders.jsx";
 import Customers from "./Components/Admin Dashboard/Customers.jsx";
-import Home from "./Components/Admin Dashboard/Home.jsx"
+import Home from "./Components/Admin Dashboard/Home.jsx";
+
 // Define the router configuration
 const router = createBrowserRouter([
   {
@@ -41,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+  },
+  {
+    path: "/cart",
+    element: <Cart />, 
   },
   {
     path: "/product/:productId",
