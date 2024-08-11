@@ -247,3 +247,17 @@ html {
   font-size: 1.5em;
   color: #666;
 }
+
+.payment-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.success-message {
+  color: green;
+}
+
+.error-message {
+  color: red;
+}

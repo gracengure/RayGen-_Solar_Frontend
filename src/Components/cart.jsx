@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners'; // Import a spinner from react-spinners
 
 function Cart({ cartItems, updateCart }) {
   const [cart, setCart] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch cart from localStorage if cartItems is not provided
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
     
     if (cartItems && cartItems.length > 0) {
@@ -21,21 +23,12 @@ function Cart({ cartItems, updateCart }) {
 
   const updateLocalStorage = (updatedCart) => {
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-    console.log('Updated local storage:', JSON.parse(localStorage.getItem('cart')));
   };
 
   const removeFromCart = (productId) => {
-    // Remove item from the cart
     const updatedCart = cart.filter(item => item.id !== productId);
-    
-    // Log the updated cart
-    console.log('Updated cart:', updatedCart);
-    
-    // Update state and local storage
     setCart(updatedCart);
     updateCart(updatedCart);
-    
-    // Log local storage update
     updateLocalStorage(updatedCart);
   };
 
@@ -48,15 +41,59 @@ function Cart({ cartItems, updateCart }) {
     updateLocalStorage(updatedCart); 
   };
 
-  const handleCheckout = () => {
-    navigate('/checkout');
-  };
+  const handleCheckout = async () => {
+    let phoneNumber = localStorage.getItem('phone_number');
+    
+    if (phoneNumber.startsWith('+')) {
+      phoneNumber = phoneNumber.substring(1);
+    }
+  
+    const totalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  
+    setLoading(true);
+    setPaymentStatus('Prompt sent, waiting for payment...');
+  
+    try {
+      const response = await fetch('http://127.0.0.1:5000/stkpush', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phone: phoneNumber,
+          amount: totalAmount
+        }),
+      });
+  
+      if (response.ok) {
+        const paymentResponse = await response.json(); 
+  
+        if (paymentResponse.success) { 
+          setPaymentStatus('Payment successful!');
+  
+          setCart([]);
+          localStorage.removeItem('cart');
+          updateCart([]);
+  
+          navigate('/checkout');
+        } else {
+          setPaymentStatus('Payment failed. Please try again.');
+        }
+      } else {
+        setPaymentStatus('Payment failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Checkout failed:', error);
+      setPaymentStatus('Payment failed due to a network error. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };  
 
   if (cart.length === 0) {
     return <div className="empty-cart">Your cart is empty!</div>;
   }
 
-  // Calculate total amount
   const totalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
@@ -78,7 +115,7 @@ function Cart({ cartItems, updateCart }) {
               <tr key={item.id}>
                 <td><img src={item.image_url} alt={item.name} className="cart-image" /></td>
                 <td>{item.name}</td>
-                <td>${item.price}</td>
+                <td>Ksh {item.price}</td>
                 <td>
                   <button onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
                   {item.quantity}
@@ -94,8 +131,18 @@ function Cart({ cartItems, updateCart }) {
       </div>
       <div className="cart-summary">
         <h3>Total Amount</h3>
-        <p>${totalAmount.toFixed(2)}</p>
-        <button onClick={handleCheckout} className="checkout-button">Checkout</button>
+        <p>Ksh {totalAmount.toFixed(2)}</p>
+        <button onClick={handleCheckout} className="checkout-button" disabled={loading}>
+          {loading ? 'Processing...' : 'Checkout'}
+        </button>
+        {paymentStatus && (
+          <div className="payment-status">
+            {loading && <ClipLoader size={25} color={"#123abc"} />} {/* Loader icon */}
+            <p className={paymentStatus.includes('successful') ? 'success-message' : 'error-message'}>
+              {paymentStatus}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

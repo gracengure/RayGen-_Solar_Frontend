@@ -44,36 +44,39 @@ const SignUp = () => {
 
   const handleSubmit = async (values) => {
     const user = {
-        name: values.name,
-        password: values.password,
-        email: values.email,
-        phone_number: values.phone_number
+      name: values.name,
+      password: values.password,
+      email: values.email,
+      phone_number: values.phone_number,
     };
-
+  
     try {
-        const response = await fetch('http://127.0.0.1:5000/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(user),
-        });
-
-        if (response.ok) {
-            const result = await response.json();
-            localStorage.setItem('access_token', result.access_token);
-            localStorage.setItem('email', values.email); 
-            setSuccessMessage('User signed up successfully! An email with a verification code has been sent.');
-            navigate('/verify', { replace: true });
-        } else if (response.status === 409) {
-            setErrorMessage('Email already exists. Please use a different email.');
-        } else {
-            throw new Error(`Sign up failed: ${response.statusText}`);
-        }      
+      const response = await fetch('http://127.0.0.1:5000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
+  
+      if (response.ok) {
+        const result = await response.json();
+        localStorage.setItem('access_token', result.access_token);
+        localStorage.setItem('email', values.email); 
+        localStorage.setItem('id', result.id);
+        localStorage.setItem('phone_number', values.phone_number); 
+        setSuccessMessage('User signed up successfully! An email with a verification code has been sent.');
+        navigate('/verify', { replace: true });
+      } else if (response.status === 409) {
+        setErrorMessage('Email already exists. Please use a different email.');
+      } else {
+        throw new Error(`Sign up failed: ${response.statusText}`);
+      }
     } catch (error) {
-        setErrorMessage(`Error: ${error.message}`);
+      setErrorMessage(`Error: ${error.message}`);
     }
   };
+  
 
   const handleSnackbarClose = () => {
     setSuccessMessage('');
