@@ -41,10 +41,11 @@ const ProductsPage = ({ products, addToCart }) => {
       {Object.keys(categorizedProducts).map((category) => (
         <div
           key={category}
-          id={category.toLowerCase().replace(/\s+/g, "-")}
+          
           className="category-section"
         >
-          <h2 className="category-title">{category}</h2>
+           <h1 id={category}></h1>
+           <h2 className="category-title">{category}</h2>
           <div className="product-list">
             {categorizedProducts[category].map((product) => (
               <div key={product.id} className="product-card">

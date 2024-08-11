@@ -41,8 +41,8 @@ const HomePage = ({ cartCount }) => {
             {isDropdown && (
               <ul className="dropdown">
                 <li><a href="#Solar Panel light">Solar Panel</a></li>
-                <li><a href="#solar-wall">Solar Wall</a></li>
-                <li><a href="#solar-street-lights">Solar Street Lights</a></li>
+                <li><a href="#Solar Wall Light">Solar Wall</a></li>
+                <li><a href="#Solar Street Light">Solar Street Lights</a></li>
               </ul>
             )}
           </li>
