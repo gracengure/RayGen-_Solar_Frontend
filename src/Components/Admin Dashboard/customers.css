@@ -1,0 +1,34 @@
+.customers-page{
+    padding: 0;
+    height: calc(100vh - 40px); /* Adjust based on header height */
+    padding-top: 42px;
+    overflow: hidden; /* Hide scrollbar on the container */
+    background-color: #89CFF0; /* Optional: add a background color for contrast */
+    width: 1200px;
+  }
+  .customer-container {
+    max-height: 100%;
+    overflow-y: auto; /* Enable vertical scrolling within the table container */
+  }
+  .table-cell {
+    font-weight: bold;
+    background-color: #89CFF0; /* Optional: Light gray background for header */
+    position: sticky;
+    top: 0; /* Ensure the header sticks to the top */
+    z-index: 1; /* Make sure it stays on top of other content */
+  }
+  
+  .table-cell:nth-child(1),
+  .table-cell:nth-child(2),
+  .table-cell:nth-child(3),
+  .table-cell:nth-child(4),
+  .table-cell:nth-child(5),
+  .table-cell:nth-child(6),
+  .table-cell:nth-child(7) {
+    color: navy;
+    font-weight: bold; /* Make header text bold */
+    font-size: larger;
+  }
+  .customer-row {
+    background-color: #89CFF0; /* Baby blue color */
+  }

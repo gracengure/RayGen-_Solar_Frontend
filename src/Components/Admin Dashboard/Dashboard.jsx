@@ -11,7 +11,7 @@ const Dashboard = () => {
         {/* This is where your main content will be displayed based on the current route */}
         <h1 style={{ textAlign: 'center' }}>Welcome to the Admin Dashboard</h1>
         <Outlet />
-        <Home/>
+        
       </div>
     </div>
   );
