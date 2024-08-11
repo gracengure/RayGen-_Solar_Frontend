@@ -12,6 +12,7 @@ import Login from './Components/Auth/Login.jsx';
 import ProductsSpecs from "./Components/ProductsSpecs.jsx";
 import About from "./About.jsx";
 import UserProfile from "./Components/UserProfile.jsx";
+import Verification from "./Components/Auth/verification.jsx"
 
 // Admin Dashboard Components
 import Dashboard from "./Components/Admin Dashboard/Dashboard.jsx";
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/verify",
+    element: <Verification />,
   },
   {
     path: "/signup",
