@@ -1,67 +1,68 @@
-
+/* Dashboard.css */
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-.dashboard-container {
-  display: flex;
-  height: 100vh;
-  background-color: #89CFF0; 
-}
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Align items at the top */
-  align-items: center;
-  width: 250px;
-  height: 100vh;
-  background-color: blue; /* baby blue color */
-  color: white;
-}
-
-
-.logo img {
-  max-width: 100%;
-  height: auto;
-}
-
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 250px;
+    height: 100vh;
+    background-color:blue; /* baby blue color */
+    color: white;
+  }
+  
+  .logo {
+    margin: 20px 0;
+  }
+  
+  .logo img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    flex: 1; /* Take up remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .sidebar ul li {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .sidebar ul li a {
+    display: block;
+    padding: 15px 0;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+  }
+  
  
-  display: block;
-  flex-direction: column;
-  justify-content: center; /* Center the links vertically */
-}
-
-.sidebar ul li {
-  margin-left: 20px;
+  .dashboard-container {
+    display: flex;
+    height: 100vh;
+    background-color: #89CFF0; 
+  }
   
-}
-
-.sidebar ul li a {
-  display: block;
-  color: black;
-  text-decoration: none;
-  font-size: x-large;
-  
-  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-}
-
-
-
-
-
-/* Styles for the Products page */
+  /* Styles for the Products page */
 .products-container {
-  padding: 0;
-  height: calc(100vh - 40px); /* Adjust based on header height */
-  padding-top: 42px;
+  padding: 20px;
+  height: calc(100vh - 64px); /* Adjust based on header height */
+  
   overflow: hidden; /* Hide scrollbar on the container */
-  background-color: #89CFF0; /* Optional: add a background color for contrast */
-  width: 1200px;
+  background-color: #f5f5f5; /* Optional: add a background color for contrast */
+  width: 1300px;
 }
 
 .table-container {
@@ -69,51 +70,22 @@ body {
   overflow-y: auto; /* Enable vertical scrolling within the table container */
 }
 
-.products-image {
+/* Reduce row height and cell padding */
+.MuiTableRow-root {
+ height: 20px; /* Adjust this value to reduce row height */
+}
+
+.MuiTableCell-root {
+  padding: 4px 8px; /* Adjust this value to reduce cell padding */
+  line-height: 0.5; /* Adjust this value to control line height */
+}
+
+/* Center text in the Stock Quantity column */
+.stock-quantity {
+  text-align: center;
+}
+
+.product-image {
   width: 50px;
   height: 50px;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-}
-
-.search-bar {
-  margin-right: 10px; /* Adjust spacing between the search bar and the button */
-  width: 400px;
-}
-
-/* .add-product-button {
-  white-space: nowrap;
-} */
-
-.table-header-cell {
-  font-weight: bold;
-  background-color: #89CFF0; /* Optional: Light gray background for header */
-  position: sticky;
-  top: 0; /* Ensure the header sticks to the top */
-  z-index: 1; /* Make sure it stays on top of other content */
-}
-
-.table-header-cell:nth-child(1),
-.table-header-cell:nth-child(2),
-.table-header-cell:nth-child(3),
-.table-header-cell:nth-child(4),
-.table-header-cell:nth-child(5),
-.table-header-cell:nth-child(6) {
-  color: navy;
-  font-weight: bold; /* Make header text bold */
-  font-size: larger;
-}
-
-.table-row {
-  background-color: #89CFF0; /* Baby blue color */
 }
