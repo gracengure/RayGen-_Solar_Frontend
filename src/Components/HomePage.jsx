@@ -1,15 +1,29 @@
-
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart, AccountCircle } from '@mui/icons-material';
 import './Navbar.css';
 import { FaCaretDown } from 'react-icons/fa';
-
 const HomePage = ({ cartCount }) => {
   const [isDropdown, setIsDropdown] = useState(false);
-  function toggleDown() {
+  const navigate = useNavigate();
+  
+  function toggleDropdown() {
     setIsDropdown(!isDropdown);
   }
+
+  const handleSignOut = () => {
+    // Clear authentication data
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("id");
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem('cart');
+    
+    // Optionally redirect to the login page
+    navigate("/login");
+  };
+
+  const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
 
   return (
     <div className="page-wrapper">
@@ -23,7 +37,7 @@ const HomePage = ({ cartCount }) => {
           </li>
           <li className="navbar-categories">
             Products
-            <FaCaretDown onClick={toggleDown} />
+            <FaCaretDown onClick={toggleDropdown} />
             {isDropdown && (
               <ul className="dropdown">
                 <li><a href="#Solar Panel light">Solar Panel</a></li>
@@ -41,20 +55,28 @@ const HomePage = ({ cartCount }) => {
               <span className="cart-count-badge">{cartCount}</span>
             </Link>
           </li>
+          {isAuthenticated && (
+            <li className="nav-item">
+              <Link to="/profile">
+                <AccountCircle className="nav-icon" />
+              </Link>
+            </li>
+          )}
           <li className="nav-item">
-            <Link to="/profile">
-              <AccountCircle className="nav-icon" />
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/signup">
-              <button className="sign-up-button">Sign Up</button>
-            </Link>
+            {isAuthenticated ? (
+              <button className="sign-up-button" onClick={handleSignOut}>Sign Out</button>
+            ) : (
+              <Link to="/signup">
+                <button className="sign-up-button">Sign Up</button>
+              </Link>
+            )}
           </li>
         </ul>
       </nav>
+      
       <main className="content">
         {/* Content goes here */}
+       
       </main>
     </div>
   );

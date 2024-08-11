@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import { Grid, Typography, TextField, Button, IconButton, Box, InputAdornment, Snackbar } from '@mui/material';
@@ -43,33 +44,34 @@ const SignUp = () => {
 
   const handleSubmit = async (values) => {
     const user = {
-      name: values.name,
-      password: values.password,
-      email: values.email,
-      phone_number: values.phone_number
+        name: values.name,
+        password: values.password,
+        email: values.email,
+        phone_number: values.phone_number
     };
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      });
+        const response = await fetch('http://127.0.0.1:5000/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        });
 
-      if (response.ok) {
-        const result = await response.json();
-        localStorage.setItem('access_token', result.access_token);
-        setSuccessMessage('User signed up successfully!');
-        navigate('/login', { replace: true });
-      } else if (response.status === 409) {
-        setErrorMessage('Email already exists. Please use a different email.');
-      } else {
-        throw new Error('Sign up failed: ${response.statusText}');
-      }      
+        if (response.ok) {
+            const result = await response.json();
+            localStorage.setItem('access_token', result.access_token);
+            localStorage.setItem('email', values.email); 
+            setSuccessMessage('User signed up successfully! An email with a verification code has been sent.');
+            navigate('/verify', { replace: true });
+        } else if (response.status === 409) {
+            setErrorMessage('Email already exists. Please use a different email.');
+        } else {
+            throw new Error(`Sign up failed: ${response.statusText}`);
+        }      
     } catch (error) {
-      setErrorMessage('Error: ${error.message}');
+        setErrorMessage(`Error: ${error.message}`);
     }
   };
 
@@ -198,7 +200,11 @@ const SignUp = () => {
           <Typography variant="body2" style={{ marginTop: '15px' }}>
             Already have an account? <Button onClick={() => navigate('/login')} color="primary">Login</Button>
           </Typography>
-          <Snackbar open={Boolean(successMessage || errorMessage)} autoHideDuration={6000} onClose={handleSnackbarClose} message={successMessage || errorMessage}
+          <Snackbar 
+            open={Boolean(successMessage || errorMessage)} 
+            autoHideDuration={6000} 
+            onClose={handleSnackbarClose} 
+            message={successMessage || errorMessage}
             ContentProps={{
               style: {
                 backgroundColor: successMessage ? 'green' : 'red',

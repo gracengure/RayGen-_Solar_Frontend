@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Grid, Typography, Button, IconButton, Box, Snackbar, TextField, InputAdornment, Checkbox, FormControlLabel } from "@mui/material";
 import { ArrowBack as ArrowBackIcon, Visibility, VisibilityOff } from "@mui/icons-material";
@@ -64,9 +63,9 @@ const SignInForm = ({ handleClose }) => {
         localStorage.setItem("access_token", result.token);
         localStorage.setItem("role", result.role);
         localStorage.setItem("id", result.id);
+        localStorage.setItem("isAuthenticated", "true"); 
         setSuccessMessage("User signed in successfully!");
   
-        // Determine navigation based on role
         if (result.role === "admin") {
           navigate("/dashboard", { replace: true });
         } else {
@@ -74,7 +73,7 @@ const SignInForm = ({ handleClose }) => {
         }
       } else {
         const errorResult = await response.json();
-        setError(errorResult.error || "Login failed. Please check your credentials.");
+        setErrorMessage(errorResult.error || "Login failed. Please check your credentials.");
       }
     } catch (error) {
       setErrorMessage("Error: " + error.message);
@@ -162,9 +161,9 @@ const Login = () => {
   return (
     <div style={{ position: "relative", minHeight: "100vh", overflow: "hidden", backgroundColor: "#f0fff0" }}>
       {/* Background images */}
-      <img src={ColorCode} alt="Color Code"style={{position: "absolute",top: 0,left: 0,width: "420px",height: "870px",objectFit: "cover",zIndex: 1,marginLeft: "20px",marginTop: "60px",}}/>
-      <img src={Man} alt="Man" style={{ position: "absolute", bottom: "10px", left: "30px", width: "40%", zIndex: 2 }} />
-      <img src={LightCode} alt="Light Code" style={{ position: "absolute", top: "15px", left: "20%", width: "10%", zIndex: 3 }} />
+      <img src={ColorCode} alt="Color Code" style={{position: "absolute",top: 0,left: 0,width: "500px",height: "870px",objectFit: "cover",zIndex: 1,marginLeft: "20px",marginTop: "60px",}}/>
+      <img src={Man} alt="Man" style={{ position: "absolute", bottom: "-70px", left: "90px", width: "40%", zIndex: 2 }} />
+      <img src={LightCode} alt="Light Code" style={{ position: "absolute", top: "15px", left: "28%", width: "10%", zIndex: 3 }} />
 
       {/* Render SignInForm */}
       {showForm && <SignInForm handleClose={handleClose} />}
