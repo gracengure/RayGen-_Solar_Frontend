@@ -25,7 +25,6 @@ const Products = () => {
     category: '',
     stock_quantity: '',
     functionality: '',
-   
   });
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -178,13 +177,11 @@ const Products = () => {
         setError("Failed to add product: " + error.message);
       });
   };
-  
-  
 
   return (
     <div className="products-container">
       <div className="header">
-        <Typography variant="h3" sx={{ color: 'navy' }} gutterBottom>
+        <Typography variant="h4" sx={{ color: 'navy' }} gutterBottom>
           Products
         </Typography>
         <TextField
@@ -201,9 +198,24 @@ const Products = () => {
             ),
           }}
           sx={{
-            borderRadius: '10px', // Apply the border-radius here
+            borderRadius: '70px',
             '& fieldset': {
-              borderRadius: '50px', // Ensures the border of the input field has the radius
+              borderRadius: '70px',
+              borderColor: 'navy', // Navy border color
+            },
+            '& input': {
+              color: 'navy', // Placeholder text color
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: 'navy', // Border color of the text field
+              },
+              '&:hover fieldset': {
+                borderColor: 'navy', // Border color on hover
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: 'navy', // Border color when focused
+              },
             },
           }}
         />
@@ -212,11 +224,10 @@ const Products = () => {
           className="add-product-button"
           onClick={() => setAddDialogOpen(true)}
           sx={{
-            borderRadius: '20px', // Rounded corners
-            padding: '10px 20px', // Adjust padding for better appearance
-            backgroundColor: 'rgba(255, 255, 255, 0.2)', // White background with transparency
-            color: 'navy', // Text color set to navy
-            // No hover effect
+            borderRadius: '20px',
+            padding: '10px 20px',
+            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+            color: 'navy',
           }}
         >
           Add Product <Add />
@@ -226,48 +237,47 @@ const Products = () => {
       {error && <Typography color="error">{error}</Typography>}
       <TableContainer component={Paper} className="table-container">
         <Table>
-        <TableHead>
-  <TableRow>
-    <TableCell className="table-header-cell">Name</TableCell>
-    <TableCell className="table-header-cell">Image</TableCell>
-    <TableCell className="table-header-cell">Category</TableCell>
-    <TableCell className="table-header-cell">Price</TableCell>
-    <TableCell className="table-header-cell">Stock Quantity</TableCell>
-    <TableCell className="table-header-cell">Actions</TableCell>
-  </TableRow>
-</TableHead>
-<TableBody>
-  {products.map((product) => (
-    <TableRow key={product.id} className="table-row">
-      <TableCell>{product.name}</TableCell>
-      <TableCell>
-        <img
-          src={product.image_url}
-          alt={product.name}
-          className="product-image"
-        />
-      </TableCell>
-      <TableCell>{product.category}</TableCell>
-      <TableCell>Ksh {product.price.toFixed(2)}</TableCell>
-      <TableCell className="stock-quantity">{product.stock_quantity}</TableCell>
-      <TableCell>
-        <IconButton
-          onClick={() => handleEdit(product)}
-          sx={{ color: 'blue' }}
-        >
-          <Edit />
-        </IconButton>
-        <IconButton
-          onClick={() => handleDelete(product.id)}
-          sx={{ color: 'red' }}
-        >
-          <Delete />
-        </IconButton>
-      </TableCell>
-    </TableRow>
-  ))}
-</TableBody>
-
+          <TableHead>
+            <TableRow>
+              <TableCell className="table-header-cell">Name</TableCell>
+              <TableCell className="table-header-cell">Image</TableCell>
+              <TableCell className="table-header-cell">Category</TableCell>
+              <TableCell className="table-header-cell">Price</TableCell>
+              <TableCell className="table-header-cell">Stock Quantity</TableCell>
+              <TableCell className="table-header-cell">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {products.map((product) => (
+              <TableRow key={product.id} className="table-row">
+                <TableCell>{product.name}</TableCell>
+                <TableCell>
+                  <img
+                    src={product.image_url}
+                    alt={product.name}
+                    className="products-image"
+                  />
+                </TableCell>
+                <TableCell>{product.category}</TableCell>
+                <TableCell>Ksh {product.price.toFixed(2)}</TableCell>
+                <TableCell className="stock-quantity">{product.stock_quantity}</TableCell>
+                <TableCell>
+                  <IconButton
+                    onClick={() => handleEdit(product)}
+                    sx={{ color: 'blue' }}
+                  >
+                    <Edit />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => handleDelete(product.id)}
+                    sx={{ color: 'red' }}
+                  >
+                    <Delete />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
       <Dialog open={editDialogOpen} onClose={handleCloseDialog}>
@@ -278,6 +288,14 @@ const Products = () => {
             label="Name"
             name="name"
             value={productForm.name}
+            onChange={handleInputChange}
+            fullWidth
+          />
+          <TextField
+            margin="dense"
+            label="Image URL"
+            name="image_url"
+            value={productForm.image_url}
             onChange={handleInputChange}
             fullWidth
           />
@@ -334,7 +352,7 @@ const Products = () => {
           />
           <TextField
             margin="dense"
-            label="Image_url"
+            label="Image URL"
             name="image_url"
             value={newProductForm.image_url}
             onChange={handleNewProductInputChange}
@@ -374,7 +392,6 @@ const Products = () => {
             onChange={handleNewProductInputChange}
             fullWidth
           />
-          
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseAddDialog}>Cancel</Button>

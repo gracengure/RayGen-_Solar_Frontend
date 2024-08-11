@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 // Helper function to group products by category

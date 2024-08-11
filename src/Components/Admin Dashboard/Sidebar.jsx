@@ -1,18 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./Dashboard.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Dashboard.css';
+import image from '../../assets/logo.jpg'; // Adjust path if needed
 
-const Sidebar = () => {
+const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
       <div className="logo">
-        <img src="/assets/WhatsApp Image 2024-08-02 at 20.05.11.jpeg" alt="Admin Logo" />
+        <img src={image} alt="Admin Logo" />
       </div>
       <ul>
         <li><Link to="/dashboard/home">Home</Link></li>
-        <li><Link to="/dashboard/products">Products</Link></li>
-        <li><Link to="/dashboard/orders">Orders</Link></li>
-        <li><Link to="/dashboard/customers">Customers</Link></li>
+        <li style={{ marginTop: '70px' }}><Link to="/dashboard/products">Products</Link></li>
+        <li style={{ marginTop: '70px' }}><Link to="/dashboard/orders">Orders</Link></li>
+        <li style={{ marginTop: '70px' }}><Link to="/dashboard/customers">Customers</Link></li>
       </ul>
     </div>
   );
