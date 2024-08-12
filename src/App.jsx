@@ -5,7 +5,7 @@ import ProductsPage from "./Components/ProductsPage";
 import HomePage from "./Components/HomePage";
 import Footer from "./Footer";
 import About from "./About";
-import Dashboard from "./Components/Admin Dashboard/Dashboard";
+
 import Cart from "./Components/cart"; 
 
 function App() {
@@ -80,7 +80,7 @@ function App() {
       <ProductsPage products={products} addToCart={addToCart} />
       <About />
       <Footer />
-      <Dashboard />
+      
       {/* <Cart cartItems={cartItems} updateCart={setCartItems} /> Pass props */}
     </>
   );
