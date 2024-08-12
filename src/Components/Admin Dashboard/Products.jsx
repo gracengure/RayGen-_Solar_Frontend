@@ -156,14 +156,15 @@ const Products = () => {
     })
       .then((response) => {
         if (response.ok) {
-          return response.json();
+          return response.json();  // Return the newly created product
         } else {
           return response.text().then(text => { throw new Error(text) });
         }
       })
-      .then(() => {
-        fetchProducts(); // Refetch the products list
-        handleCloseAddDialog();
+      .then((newProduct) => {
+        // Add the new product to the state so it displays on the page
+        setProducts([...products, newProduct]);
+        handleCloseAddDialog();  // Close the add product dialog
         setNewProductForm({
           name: '',
           image_url:'',
@@ -171,13 +172,14 @@ const Products = () => {
           category: '',
           stock_quantity: '',
           functionality: ''
-        }); // Clear the form
+        });  // Clear the form
       })
       .catch((error) => {
         console.error("Error adding product:", error);
         setError("Failed to add product: " + error.message);
       });
   };
+  
 
   return (
     <div className="products-container">
@@ -260,7 +262,7 @@ const Products = () => {
                   />
                 </TableCell>
                 <TableCell>{product.category}</TableCell>
-                <TableCell>Ksh {product.price.toFixed(2)}</TableCell>
+                <TableCell>Ksh {product.price}</TableCell>
                 <TableCell className="stock-quantity">{product.stock_quantity}</TableCell>
                 <TableCell>
                   <IconButton
