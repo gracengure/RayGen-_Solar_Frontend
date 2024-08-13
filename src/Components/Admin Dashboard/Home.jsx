@@ -70,3 +70,15 @@ const Dashboard = () => {
             {usersData.length}
           </Typography>
         </Box>
+
+        {/* ROW 2 */}
+        <Box gridColumn="span 8" gridRow="span 5" backgroundColor={colors.primary[400]}>
+          <Box mt="2px" p="0 3px" display="flex" justifyContent="space-between" alignItems="center">
+            <Box>
+              <Typography variant="h10" fontWeight="600" color={colors.grey[100]}>
+                Revenue Generated
+              </Typography>
+              <Typography variant="h5" fontWeight="bold" color={colors.greenAccent[500]}>
+                $59,342.32
+              </Typography>
+            </Box>
