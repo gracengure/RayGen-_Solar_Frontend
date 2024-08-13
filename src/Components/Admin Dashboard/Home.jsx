@@ -23,3 +23,11 @@ const Dashboard = () => {
       .catch(error => {
         console.error('Error fetching line chart data:', error);
       });
+
+    axios.get('http://127.0.0.1:5000/barChartData')
+      .then(response => {
+        setBarChartData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching bar chart data:', error);
+      });   
