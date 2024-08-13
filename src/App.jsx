@@ -2,19 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import ProductsPage from "./Components/ProductsPage";
-<<<<<<< HEAD
 import HomePage from "./Components/HomePage";
 import Footer from "./Footer";
 import About from "./About";
 import Dashboard from "./Components/Admin Dashboard/Dashboard";
 import Cart from "./Components/cart"; 
 
-=======
-import HomePage from './Components/HomePage';
-import Footer from "./Footer"
-import About from "./About"
-import Dashboard  from "./Components/Admin Dashboard/Dashboard";
->>>>>>> 9c5901c (changes)
+
 function App() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
@@ -83,15 +77,6 @@ function App() {
 
   return (
     <>
-<<<<<<< HEAD
-      <HomePage cartCount={cartCount} />
-      <ProductsPage products={products} addToCart={addToCart} />
-      <About />
-      <Footer />
-      <Dashboard />
-      {/* <Cart cartItems={cartItems} updateCart={setCartItems} /> Pass props */}
-    </>
-=======
     <HomePage cartCount={cartCount} />
     <ProductsPage
     products={products}
@@ -104,7 +89,6 @@ function App() {
  <Dashboard/>
 
   </>
->>>>>>> 9c5901c (changes)
   );
 }
 

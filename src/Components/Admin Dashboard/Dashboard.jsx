@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import './Dashboard.css';
 import Sidebar from './Sidebar';
 import Home from './Home';
+
 const Dashboard = () => {
   return (
     <div className="dashboard-container">
@@ -12,6 +13,7 @@ const Dashboard = () => {
         <h1 style={{ textAlign: 'center' }}>Welcome to the Admin Dashboard</h1>
         <Outlet />
         <Home/>
+       
       </div>
     </div>
   );
