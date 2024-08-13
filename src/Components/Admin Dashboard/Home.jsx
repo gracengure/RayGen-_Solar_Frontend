@@ -57,3 +57,16 @@ const Dashboard = () => {
         >
           <DownloadOutlinedIcon sx={{ mr: "10px" }} /> Reports
         </Button>    
+        </Box>
+
+      {/* GRID & CHARTS */}
+      <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gridAutoRows="140px" gap="20px">
+        {/* ROW 1 */}
+        <Box gridColumn="span 3" backgroundColor={colors.primary[400]} display="flex" alignItems="center" justifyContent="center">
+          <Typography variant="h5" fontWeight="600" color={colors.grey[100]}>
+            Total Users
+          </Typography>
+          <Typography variant="h4" fontWeight="bold" color={colors.greenAccent[500]}>
+            {usersData.length}
+          </Typography>
+        </Box>
