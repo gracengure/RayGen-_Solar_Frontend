@@ -95,3 +95,33 @@ const Dashboard = () => {
                   legend: { text: { fill: colors.grey[100] } },
                   ticks: { line: { stroke: colors.grey[100], strokeWidth: 1 }, text: { fill: colors.grey[100] } },
                 },
+                legends: { text: { fill: colors.grey[100] } },
+                tooltip: { container: { color: colors.primary[500] } },
+              }}
+              colors={{ scheme: "nivo" }}
+              margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+              xScale={{ type: "point" }}
+              yScale={{ type: "linear", min: "auto", max: "auto", stacked: true, reverse: false }}
+              yFormat=" >-.2f"
+              curve="catmullRom"
+              axisTop={null}
+              axisRight={null}
+              axisBottom={{
+                orient: "bottom",
+                tickSize: 0,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: "Date",
+                legendOffset: 36,
+                legendPosition: "middle",
+              }}
+              axisLeft={{
+                orient: "left",
+                tickValues: 5,
+                tickSize: 3,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: "Revenue",
+                legendOffset: -40,
+                legendPosition: "middle",
+              }}
