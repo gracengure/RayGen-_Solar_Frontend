@@ -158,14 +158,14 @@ const Dashboard = () => {
           <Box display="flex" justifyContent="space-between" alignItems="center" borderBottom={`4px solid ${colors.primary[500]}`} p="15px">
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">Recent Transactions</Typography>
           </Box>
-          {/* Display recent transactions from the usersData */}
+          {}
           {usersData.map((user, i) => (
             <Box key={i} display="flex" justifyContent="space-between" alignItems="center" borderBottom={`4px solid ${colors.primary[500]}`} p="15px">
               <Box>
                 <Typography color={colors.greenAccent[500]} variant="h5" fontWeight="600">{user.name}</Typography>
                 <Typography color={colors.grey[100]}>{user.email}</Typography>
               </Box>
-              <Box color={colors.grey[100]}>Joined Date: {/* Add logic to display joined date */}</Box>
+              <Box color={colors.grey[100]}>Joined Date: {}</Box>
             </Box>
           ))}
         </Box>
@@ -219,4 +219,36 @@ const Dashboard = () => {
                 legend: "Units Sold",
                 legendPosition: "middle",
                 legendOffset: -40,
-              }}
+              }}enableLabel={false}
+              labelSkipWidth={12}
+              labelSkipHeight={12}
+              labelTextColor={{ from: "color", modifiers: [["darker", 1.6]] }}
+              legends={[
+                {
+                  dataFrom: "keys",
+                  anchor: "bottom-right",
+                  direction: "column",
+                  justify: false,
+                  translateX: 120,
+                  translateY: 0,
+                  itemsSpacing: 2,
+                  itemWidth: 100,
+                  itemHeight: 20,
+                  itemDirection: "left-to-right",
+                  itemOpacity: 0.85,
+                  symbolSize: 20,
+                  effects: [{ on: "hover", style: { itemOpacity: 1 } }],
+                },
+              ]}
+            />
+          </Box>
+        </Box>
+        <Box gridColumn="span 4" gridRow="span 2" backgroundColor={colors.primary[400]} padding="30px">
+          {}
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+export default Dashboard;
