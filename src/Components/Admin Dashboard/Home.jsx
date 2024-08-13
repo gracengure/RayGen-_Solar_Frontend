@@ -11,3 +11,6 @@ import axios from 'axios';
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [lineChartData, setLineChartData] = useState([]);
+  const [barChartData, setBarChartData] = useState([]);
+  const [usersData, setUsersData] = useState([]);
