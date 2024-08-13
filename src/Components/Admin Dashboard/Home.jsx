@@ -46,3 +46,14 @@ const Dashboard = () => {
         {/* HEADER */}
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />   
+          <Button
+          sx={{
+            backgroundColor: colors.blueAccent[700],
+            color: colors.grey[100],
+            fontSize: "14px",
+            fontWeight: "bold",
+            padding: "10px 20px",
+          }}
+        >
+          <DownloadOutlinedIcon sx={{ mr: "10px" }} /> Reports
+        </Button>    
