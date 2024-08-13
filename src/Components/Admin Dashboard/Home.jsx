@@ -15,7 +15,7 @@ const Dashboard = () => {
   const [barChartData, setBarChartData] = useState([]);
   const [usersData, setUsersData] = useState([]);
   useEffect(() => {
-   
+    
     axios.get('http://127.0.0.1:5000/lineChartData')
       .then(response => {
         setLineChartData([{ id: 'Revenue', data: response.data }]);
