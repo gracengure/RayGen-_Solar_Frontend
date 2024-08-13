@@ -82,3 +82,7 @@ const Dashboard = () => {
                 $59,342.32
               </Typography>
             </Box>
+            <IconButton>
+              <DownloadOutlinedIcon sx={{ fontSize: "26px", color: colors.greenAccent[500] }} />
+            </IconButton>
+          </Box>
