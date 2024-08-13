@@ -184,3 +184,15 @@ const Dashboard = () => {
           <Typography variant="h5" fontWeight="600" sx={{ padding: "30px 30px 0 30px" }}>
             Sales Quantity
           </Typography>
+          <Box height="250px" mt="-20px">
+            <ResponsiveBar
+              data={barChartData}
+              theme={{
+                axis: {
+                  domain: { line: { stroke: colors.grey[100] } },
+                  legend: { text: { fill: colors.grey[100] } },
+                  ticks: { line: { stroke: colors.grey[100], strokeWidth: 1 }, text: { fill: colors.grey[100] } },
+                },
+                legends: { text: { fill: colors.grey[100] } },
+                tooltip: { container: { color: colors.primary[500] } },
+              }}
