@@ -1,4 +1,3 @@
-import React from "react";
 import React, { useState, useEffect } from 'react';
 import './orders.css';
 
@@ -87,7 +86,7 @@ const Order = () => {
             <th>Delivery_date</th>
             <th>Order_status</th>
             <th>Total_expenditure</th>
-            <th>Actions</th>
+           
           </tr>
         </thead>
         <tbody>
