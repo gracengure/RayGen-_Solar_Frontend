@@ -86,3 +86,12 @@ const Dashboard = () => {
               <DownloadOutlinedIcon sx={{ fontSize: "26px", color: colors.greenAccent[500] }} />
             </IconButton>
           </Box>
+          <Box height="250px" m="-20px 0 0 0">
+            <ResponsiveLine
+              data={lineChartData}
+              theme={{
+                axis: {
+                  domain: { line: { stroke: colors.grey[100] } },
+                  legend: { text: { fill: colors.grey[100] } },
+                  ticks: { line: { stroke: colors.grey[100], strokeWidth: 1 }, text: { fill: colors.grey[100] } },
+                },
