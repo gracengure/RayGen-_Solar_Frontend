@@ -31,25 +31,7 @@ const Dashboard = () => {
         <Box display="flex" justifyContent="space-between" alignItems="center" flexDirection={{ xs: 'column', sm: 'row' }}>
           <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
 
-          <Box>
-            <Button
-              sx={{
-                backgroundColor: colors.blueAccent[700],
-                color: colors.grey[100],
-                fontSize: { xs: "12px", sm: "14px" },
-                fontWeight: "bold",
-                padding: { xs: "8px 16px", sm: "10px 20px" },
-                borderRadius: "5px",
-                boxShadow: `0 4px 6px ${colors.shadow}`,
-                '&:hover': {
-                  backgroundColor: colors.blueAccent[800],
-                }
-              }}
-            >
-              <DownloadOutlinedIcon sx={{ mr: "8px" }} />
-               Reports
-            </Button>
-          </Box>
+          {/*  */}
         </Box>
 
         {/* GRID & CHARTS */}
