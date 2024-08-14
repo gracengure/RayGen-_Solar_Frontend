@@ -1,9 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, InputAdornment
+  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, InputAdornment, Snackbar, Alert, CircularProgress
 } from '@mui/material';
 import { Edit, Delete, Add, Search } from '@mui/icons-material';
-import './Dashboard.css'; // Import custom styles
+import { styled } from '@mui/material/styles';
+
+const HeaderContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: theme.spacing(2),
+}));
+
+const TableHeaderCell = styled(TableCell)(({ theme }) => ({
+  fontWeight: 'bold',
+  backgroundColor: theme.palette.grey[200],
+  boxShadow: `0 0 10px ${theme.palette.primary.main}`, // Glow effect
+  transition: 'box-shadow 0.3s ease-in-out',
+  '&:hover': {
+    boxShadow: `0 0 15px ${theme.palette.primary.main}`, // Glow effect on hover
+  },
+}));
+
+const ProductImage = styled('img')(({ theme }) => ({
+  width: 100,
+  height: 100,
+  objectFit: 'cover',
+  borderRadius: theme.shape.borderRadius,
+  boxShadow: `0 0 8px ${theme.palette.primary.main}`, // Glow effect
+}));
+
+const GlowingTextField = styled(TextField)(({ theme }) => ({
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'primary.main',
+    },
+    '&:hover fieldset': {
+      borderColor: 'primary.main',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: 'primary.main',
+      boxShadow: `0 0 8px ${theme.palette.primary.main}`, // Glow effect on focus
+    },
+  },
+}));
+
+const GlowingButton = styled(Button)(({ theme }) => ({
+  borderRadius: '20px',
+  padding: '10px 20px',
+  backgroundColor: 'primary.main',
+  color: 'white',
+  boxShadow: `0 0 10px ${theme.palette.primary.main}`, // Glow effect
+  transition: 'box-shadow 0.3s ease-in-out',
+  '&:hover': {
+    backgroundColor: 'primary.dark',
+    boxShadow: `0 0 15px ${theme.palette.primary.main}`, // Glow effect on hover
+  },
+}));
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -16,23 +69,29 @@ const Products = () => {
     price: '',
     category: '',
     stock_quantity: '',
-    functionality: ''
+    functionality: '',
+    image_url: ''
   });
   const [newProductForm, setNewProductForm] = useState({
     name: '',
-    image_url:'',
+    image_url: '',
     price: '',
     category: '',
     stock_quantity: '',
     functionality: '',
   });
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
   const fetchProducts = async (category = '') => {
+    setLoading(true);
     try {
       const url = category ? `http://127.0.0.1:5000/products/category?category=${category}` : 'http://127.0.0.1:5000/products';
       const response = await fetch(url);
@@ -44,6 +103,8 @@ const Products = () => {
       }
     } catch (err) {
       setError('Error fetching products.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -107,10 +168,15 @@ const Products = () => {
           product.id === selectedProduct.id ? { ...product, ...productForm } : product
         ));
         handleCloseDialog();
+        setSnackbarMessage('Product updated successfully!');
+        setSnackbarSeverity('success');
+        setSnackbarOpen(true);
       })
       .catch((error) => {
         console.error("Error updating product:", error);
-        setError("Failed to update product: " + error.message);
+        setSnackbarMessage("Failed to update product: " + error.message);
+        setSnackbarSeverity('error');
+        setSnackbarOpen(true);
       });
   };
 
@@ -124,16 +190,21 @@ const Products = () => {
           "Content-Type": "application/json"
         },
       });
-  
+
       if (response.ok) {
         setProducts(products.filter(product => product.id !== productId));
+        setSnackbarMessage('Product deleted successfully!');
+        setSnackbarSeverity('success');
+        setSnackbarOpen(true);
       } else {
         const errorMessage = await response.text();
         throw new Error(errorMessage || 'Failed to delete product');
       }
     } catch (error) {
       console.error("Error deleting product:", error);
-      setError("Failed to delete product: " + error.message);
+      setSnackbarMessage("Failed to delete product: " + error.message);
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
     }
   };
 
@@ -165,30 +236,34 @@ const Products = () => {
         handleCloseAddDialog();
         setNewProductForm({
           name: '',
-          image_url:'',
+          image_url: '',
           price: '',
           category: '',
           stock_quantity: '',
           functionality: ''
         }); // Clear the form
+        setSnackbarMessage('Product added successfully!');
+        setSnackbarSeverity('success');
+        setSnackbarOpen(true);
       })
       .catch((error) => {
         console.error("Error adding product:", error);
-        setError("Failed to add product: " + error.message);
+        setSnackbarMessage("Failed to add product: " + error.message);
+        setSnackbarSeverity('error');
+        setSnackbarOpen(true);
       });
   };
 
   return (
     <div className="products-container">
-      <div className="header">
-        <Typography variant="h4" sx={{ color: 'navy' }} gutterBottom>
+      <HeaderContainer>
+        <Typography variant="h4" color="primary" gutterBottom>
           Products
         </Typography>
-        <TextField
+        <GlowingTextField
           variant="outlined"
           value={searchTerm}
           onChange={handleSearchChange}
-          className="search-bar"
           placeholder="Search by Category ...."
           InputProps={{
             startAdornment: (
@@ -197,89 +272,64 @@ const Products = () => {
               </InputAdornment>
             ),
           }}
-          sx={{
-            borderRadius: '70px',
-            '& fieldset': {
-              borderRadius: '70px',
-              borderColor: 'navy', // Navy border color
-            },
-            '& input': {
-              color: 'navy', // Placeholder text color
-            },
-            '& .MuiOutlinedInput-root': {
-              '& fieldset': {
-                borderColor: 'navy', // Border color of the text field
-              },
-              '&:hover fieldset': {
-                borderColor: 'navy', // Border color on hover
-              },
-              '&.Mui-focused fieldset': {
-                borderColor: 'navy', // Border color when focused
-              },
-            },
-          }}
         />
-        <Button
+        <GlowingButton
           variant="contained"
-          className="add-product-button"
           onClick={() => setAddDialogOpen(true)}
-          sx={{
-            borderRadius: '20px',
-            padding: '10px 20px',
-            backgroundColor: 'rgba(255, 255, 255, 0.2)',
-            color: 'navy',
-          }}
         >
           Add Product <Add />
-        </Button>
-      </div>
+        </GlowingButton>
+      </HeaderContainer>
 
-      {error && <Typography color="error">{error}</Typography>}
-      <TableContainer component={Paper} className="table-container">
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell className="table-header-cell">Name</TableCell>
-              <TableCell className="table-header-cell">Image</TableCell>
-              <TableCell className="table-header-cell">Category</TableCell>
-              <TableCell className="table-header-cell">Price</TableCell>
-              <TableCell className="table-header-cell">Stock Quantity</TableCell>
-              <TableCell className="table-header-cell">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {products.map((product) => (
-              <TableRow key={product.id} className="table-row">
-                <TableCell>{product.name}</TableCell>
-                <TableCell>
-                  <img
-                    src={product.image_url}
-                    alt={product.name}
-                    className="products-image"
-                  />
-                </TableCell>
-                <TableCell>{product.category}</TableCell>
-                <TableCell>Ksh {product.price.toFixed(2)}</TableCell>
-                <TableCell className="stock-quantity">{product.stock_quantity}</TableCell>
-                <TableCell>
-                  <IconButton
-                    onClick={() => handleEdit(product)}
-                    sx={{ color: 'blue' }}
-                  >
-                    <Edit />
-                  </IconButton>
-                  <IconButton
-                    onClick={() => handleDelete(product.id)}
-                    sx={{ color: 'red' }}
-                  >
-                    <Delete />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <>
+          {error && <Typography color="error">{error}</Typography>}
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableHeaderCell>Name</TableHeaderCell>
+                  <TableHeaderCell>Image</TableHeaderCell>
+                  <TableHeaderCell>Category</TableHeaderCell>
+                  <TableHeaderCell>Price</TableHeaderCell>
+                  <TableHeaderCell>Stock Quantity</TableHeaderCell>
+                  <TableHeaderCell>Actions</TableHeaderCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {products.map((product) => (
+                  <TableRow key={product.id}>
+                    <TableCell>{product.name}</TableCell>
+                    <TableCell>
+                      <ProductImage src={product.image_url} alt={product.name} />
+                    </TableCell>
+                    <TableCell>{product.category}</TableCell>
+                    <TableCell>Ksh {product.price.toFixed(2)}</TableCell>
+                    <TableCell>{product.stock_quantity}</TableCell>
+                    <TableCell>
+                      <IconButton
+                        onClick={() => handleEdit(product)}
+                        sx={{ color: 'primary.main' }}
+                      >
+                        <Edit />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => handleDelete(product.id)}
+                        sx={{ color: 'error.main' }}
+                      >
+                        <Delete />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      )}
+
       <Dialog open={editDialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>Edit Product</DialogTitle>
         <DialogContent>
@@ -341,6 +391,7 @@ const Products = () => {
           </Button>
         </DialogActions>
       </Dialog>
+
       <Dialog open={addDialogOpen} onClose={handleCloseAddDialog}>
         <DialogTitle>Add New Product</DialogTitle>
         <DialogContent>
@@ -402,6 +453,20 @@ const Products = () => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={() => setSnackbarOpen(false)}
+      >
+        <Alert
+          onClose={() => setSnackbarOpen(false)}
+          severity={snackbarSeverity}
+          sx={{ width: '100%' }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
