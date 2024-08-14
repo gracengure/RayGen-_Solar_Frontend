@@ -26,6 +26,7 @@
   .table-cell:nth-child(6),
   .table-cell:nth-child(7) {
     color: navy;
+    color: dodgerblue;
     font-weight: bold; /* Make header text bold */
     font-size: larger;
   }

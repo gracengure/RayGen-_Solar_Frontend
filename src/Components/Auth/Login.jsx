@@ -64,10 +64,11 @@ const SignInForm = ({ handleClose }) => {
         localStorage.setItem("role", result.role);
         localStorage.setItem("id", result.id);
         localStorage.setItem("isAuthenticated", "true"); 
+        // localStorage.setItem("phoneNumber", result.phone_number);
         setSuccessMessage("User signed in successfully!");
   
         if (result.role === "admin") {
-          navigate("/dashboard", { replace: true });
+          navigate("/dashboard/home", { replace: true });
         } else {
           navigate("/", { replace: true });
         }

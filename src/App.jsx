@@ -5,8 +5,8 @@ import ProductsPage from "./Components/ProductsPage";
 import HomePage from "./Components/HomePage";
 import Footer from "./Footer";
 import About from "./About";
-import Dashboard from "./Components/Admin Dashboard/Dashboard";
-import Cart from "./Components/cart"; 
+
+import cart from "./Components/cart"; 
 
 
 function App() {
@@ -86,7 +86,7 @@ function App() {
   <About/>
   <Footer/>
   
- <Dashboard/>
+   
 
   </>
   );

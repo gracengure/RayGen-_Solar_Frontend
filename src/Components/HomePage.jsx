@@ -29,7 +29,7 @@ const HomePage = ({ cartCount }) => {
     <div className="page-wrapper">
       <nav className="nav">
         <div className="nav-logo">
-          <img alt="RayGen Solar Solutions" className="logo-image" />
+        <img alt="RayGen Solar Solutions" className="logo-image" />
         </div>
         <ul className="nav-menu">
           <li>
@@ -41,8 +41,8 @@ const HomePage = ({ cartCount }) => {
             {isDropdown && (
               <ul className="dropdown">
                 <li><a href="#Solar Panel light">Solar Panel</a></li>
-                <li><a href="#solar-wall">Solar Wall</a></li>
-                <li><a href="#solar-street-lights">Solar Street Lights</a></li>
+                <li><a href="#Solar Wall Light">Solar Wall</a></li>
+                <li><a href="#Solar Street Light">Solar Street Lights</a></li>
               </ul>
             )}
           </li>
