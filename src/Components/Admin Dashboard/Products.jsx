@@ -181,7 +181,7 @@ const Products = () => {
   return (
     <div className="products-container">
       <div className="header">
-        <Typography variant="h4" sx={{ color: 'navy' }} gutterBottom>
+        <Typography variant="h4" sx={{ color: 'dodgerblue' }} gutterBottom>
           Products
         </Typography>
         <TextField
@@ -201,14 +201,14 @@ const Products = () => {
             borderRadius: '70px',
             '& fieldset': {
               borderRadius: '70px',
-              borderColor: 'navy', // Navy border color
+              borderColor: 'dodgerblue', // Navy border color
             },
             '& input': {
               color: 'navy', // Placeholder text color
             },
             '& .MuiOutlinedInput-root': {
               '& fieldset': {
-                borderColor: 'navy', // Border color of the text field
+                borderColor: 'dodger blue', // Border color of the text field
               },
               '&:hover fieldset': {
                 borderColor: 'navy', // Border color on hover
@@ -227,7 +227,7 @@ const Products = () => {
             borderRadius: '20px',
             padding: '10px 20px',
             backgroundColor: 'rgba(255, 255, 255, 0.2)',
-            color: 'navy',
+            color: 'dodgerblue',
           }}
         >
           Add Product <Add />

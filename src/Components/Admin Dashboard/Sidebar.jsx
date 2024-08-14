@@ -1,11 +1,18 @@
-
 import React from 'react';
-import { Link, useNavigate } from "react-router-dom";
-import './Dashboard.css';
-import image from '../../assets/logo.jpg'; // Adjust path if needed
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { List, ListItem, ListItemText, Drawer, Box } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PeopleIcon from '@mui/icons-material/People';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
-const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
+// Replace with the path to your image
+import SidebarImage from '../../assets/logo.jpg';
+
+const Sidebar = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // Get the current location
   const handleSignOut = () => {
     // Clear authentication data
     localStorage.removeItem("access_token");
@@ -19,27 +26,98 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
 
   const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
 
+  // Function to determine if a link is active
+  const isActiveLink = (path) => location.pathname === path;
+
   return (
-    <div className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
-      <div className="logo">
-        <img src={image} alt="Admin Logo" />
-      </div>
-      <ul>
-        <li><Link to="/dashboard/home">Home</Link></li>
-        <li style={{ marginTop: '70px' }}><Link to="/dashboard/products">Products</Link></li>
-        <li style={{ marginTop: '70px' }}><Link to="/dashboard/orders">Orders</Link></li>
-        <li style={{ marginTop: '70px' }}><Link to="/dashboard/customers">Customers</Link></li>
-        <li style={{ marginTop: '70px' }}>
-            {isAuthenticated ? (
-              <button className="sign-up-button" onClick={handleSignOut}>Sign Out</button>
-            ) : (
-              <Link to="/signup">
-                <button className="sign-up-button">Sign Up</button>
-              </Link>
-            )}
-          </li>
-      </ul>
-    </div>
+    <Drawer
+      variant="permanent"
+      anchor="left"
+      sx={{
+        width: 200,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: 200,
+          boxSizing: 'border-box',
+          backgroundColor: 'white', // Background color
+        },
+      }}
+    >
+      {/* Image at the top of the sidebar */}
+      <Box>
+        <img
+          src={SidebarImage}
+          alt="Sidebar Image"
+          style={{ maxWidth: '100%', height: 'auto' }}
+        />
+      </Box>
+
+      <List>
+        <ListItem 
+          button 
+          component={Link} 
+          to="/dashboard/home"
+          sx={{ 
+            backgroundColor: isActiveLink('/dashboard/home') ? 'dodgerblue' : 'transparent' 
+          }}
+        >
+          <HomeIcon sx={{ marginRight: '10px' }} />
+          <ListItemText primary="Home" />
+        </ListItem>
+        <ListItem 
+          button 
+          style={{ marginTop: '20px' }} 
+          component={Link} 
+          to="/dashboard/products"
+          sx={{ 
+            backgroundColor: isActiveLink('/dashboard/products') ? 'dodgerblue' : 'transparent' 
+          }}
+        >
+          <ShoppingCartIcon sx={{ marginRight: '10px' }} />
+          <ListItemText primary="Products" />
+        </ListItem>
+        <ListItem 
+          button 
+          style={{ marginTop: '20px' }} 
+          component={Link} 
+          to="/dashboard/customers"
+          sx={{ 
+            backgroundColor: isActiveLink('/dashboard/customers') ? 'dodgerblue' : 'transparent' 
+          }}
+        >
+          <PeopleIcon sx={{ marginRight: '10px' }} />
+          <ListItemText primary="Customers" />
+        </ListItem>
+        <ListItem 
+          button 
+          style={{ marginTop: '20px' }} 
+          component={Link} 
+          to="/dashboard/orders"
+          sx={{ 
+            backgroundColor: isActiveLink('/dashboard/orders') ? 'dodgerblue' : 'transparent' 
+          }}
+        >
+          <AssignmentIcon sx={{ marginRight: '10px' }} />
+          <ListItemText primary="Orders" />
+        </ListItem>
+
+        {/* Sign Out button */}
+        {isAuthenticated ? (
+          <ListItem 
+            button 
+            style={{ marginTop: '20px' }} 
+            onClick={handleSignOut}
+          >
+            <ExitToAppIcon sx={{ marginRight: '10px' }} />
+            <ListItemText primary="Sign Out" />
+          </ListItem>
+        ) : (
+          <Link to="/signup">
+            <button className="sign-up-button">Sign Up</button>
+          </Link>
+        )}
+      </List>
+    </Drawer>
   );
 };
 

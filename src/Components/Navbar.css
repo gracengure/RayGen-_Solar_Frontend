@@ -23,6 +23,7 @@
   justify-content: space-between;
   z-index: 1000; 
   border-bottom: 2px solid #8d8181; 
+  
 }
 
 .nav-logo {
@@ -59,7 +60,7 @@
   padding: 8px 16px;
   font-size: 16px;
   color: rgb(12, 11, 11);
-  background-color: #3d97f1; 
+  background-color: #008cff; 
   border: none;
   border-radius: 20px;
   cursor: pointer;
