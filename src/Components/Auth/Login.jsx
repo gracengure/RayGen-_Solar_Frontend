@@ -68,7 +68,7 @@ const SignInForm = ({ handleClose }) => {
         setSuccessMessage("User signed in successfully!");
   
         if (result.role === "admin") {
-          navigate("/dashboard", { replace: true });
+          navigate("/dashboard/home", { replace: true });
         } else {
           navigate("/", { replace: true });
         }

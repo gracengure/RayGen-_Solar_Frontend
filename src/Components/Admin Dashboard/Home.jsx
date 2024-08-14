@@ -1,106 +1,79 @@
-import React from 'react';
-import { Grid, Card, CardContent, Typography } from '@mui/material';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+// src/components/HomeWithCard.jsx
+import React, { useEffect, useState } from 'react';
+import { Grid, Card, CardContent, Typography, Avatar, Box, CardMedia, Badge } from '@mui/material';
+import axios from 'axios';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-const Home = () => {
-  // Sample data for the line graph
-  const salesData = [
-    { month: 'Jan', sales: 4000 },
-    { month: 'Feb', sales: 3000 },
-    { month: 'Mar', sales: 5000 },
-    { month: 'Apr', sales: 4780 },
-    { month: 'May', sales: 5890 },
-    { month: 'Jun', sales: 4390 },
-    { month: 'Jul', sales: 4490 },
-  ];
-  const cardStyles = {
-    backgroundColor: '#f5f5f5', // Light grey background color
-    color: '#333', // Text color
-    padding: '20px', // Padding inside the card
-    borderRadius: '8px', // Rounded corners
-    boxShadow: '0 3px 5px rgba(0,0,0,0.1)', // Subtle shadow for depth
-  };
+// ProductCard Component
+const ProductCard = ({ data }) => {
   return (
-    <Grid container spacing={3}>
-      {/* Card for Products */}
-      <Grid item xs={12} sm={6} md={3}>
-        <Card sx={cardStyles}>
-          <CardContent>
-            <Typography variant="h5" component="div">
-              Products
+    <Card
+      sx={{
+        minWidth: 275,
+        margin: '10px',
+        textAlign: 'left',
+        boxShadow: 3,
+        borderRadius: 2,
+        background: 'linear-gradient(to right, #e0f7fa, #b2ebf2)',
+        transition: 'transform 0.3s ease-in-out',
+        '&:hover': {
+          transform: 'scale(1.05)',
+          boxShadow: 6,
+        },
+      }}
+    >
+      {/* Optional: Add a card media element if you want an image at the top */}
+      
+      <CardContent>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Badge badgeContent="New" color="primary">
+            <Avatar sx={{ bgcolor: 'primary.main', width: 56, height: 56, mr: 2 }}>
+              <ShoppingCartIcon />
+            </Avatar>
+          </Badge>
+          <Box>
+          <Typography variant="h5" component="div" sx={{ color: 'primary.main' }}>
+              {data.content}
             </Typography>
-            <Typography variant="h4">
-              120
+            <Typography sx={{ fontSize: 14, fontWeight: 'bold' }} color="text.secondary" gutterBottom>
+              {data.title}
             </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
+            
+            
+          </Box>
+        </Box>
+      </CardContent>
+    </Card>
+  );
+};
 
-      {/* Card for Sales */}
-      <Grid item xs={12} sm={6} md={3}>
-        <Card sx={{ ...cardStyles, backgroundColor: '#e0f7fa' }}> {/* Light cyan background */}
-          <CardContent>
-            <Typography variant="h5" component="div">
-              Sales
-            </Typography>
-            <Typography variant="h4">
-              $45,000
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
+// Home Component
+const Home = () => {
+  const [totalProducts, setTotalProducts] = useState(null);
 
-      {/* Card for Customers */}
-      <Grid item xs={12} sm={6} md={3}>
-        <Card sx={{ ...cardStyles, backgroundColor: '#fff3e0' }}> {/* Light orange background */}
-          <CardContent>
-            <Typography variant="h5" component="div">
-              Customers
-            </Typography>
-            <Typography variant="h4">
-              350
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
+  useEffect(() => {
+    // Replace with your backend API endpoint
+    axios.get('http://127.0.0.1:5000/api/products/total')
+      .then(response => {
+        setTotalProducts(response.data.total); // Adjust based on your API response structure
+      })
+      .catch(error => {
+        console.error('Error fetching product data:', error);
+      });
+  }, []);
 
-      {/* Card for Orders */}
-      <Grid item xs={12} sm={6} md={3}>
-        <Card sx={{ ...cardStyles, backgroundColor: '#e1bee7' }}> {/* Light purple background */}
-          <CardContent>
-            <Typography variant="h5" component="div">
-              Orders
-            </Typography>
-            <Typography variant="h4">
-              80
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
+  const cardData = {
+    title: "Total Products",
+    content: totalProducts !== null ? totalProducts : 'Loading...',
+   
+  };
 
-      {/* Line Graph for Sales Tracking */}
-      <Grid item xs={12}>
-        <Card>
-          <CardContent>
-            <Typography variant="h5" component="div">
-              Sales Overview
-            </Typography>
-            <ResponsiveContainer width="100%" height={400}>
-              <LineChart
-                data={salesData}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="sales" stroke="#8884d8" activeDot={{ r: 8 }} />
-              </LineChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={12} md={6} lg={4}>
+        <ProductCard data={cardData} />
       </Grid>
+      {/* Add more cards if needed */}
     </Grid>
   );
 };

@@ -1,18 +1,4 @@
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-.dashboard-container {
-  display: flex;
-  height: 100vh;
-  background-color: white; 
-}
-
-
-
-/* Styles for the Products page */
-.products-container {
+.orders-container {
   padding: 0;
   height: calc(100vh - 40px); /* Adjust based on header height */
   padding-top: 80px;
@@ -27,32 +13,6 @@ body {
 
 }
 
-.products-image {
-  width: 50px;
-  height: 50px;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-}
-
-.search-bar {
-  margin-right: 10px; /* Adjust spacing between the search bar and the button */
-  width: 400px;
-}
-
-/* .add-product-button {
-  white-space: nowrap;
-} */
-
 .table-header-cell {
   font-weight: bold;
   background-color: white; /* Optional: Light gray background for header */
@@ -60,7 +20,6 @@ body {
   top: 0; /* Ensure the header sticks to the top */
   z-index: 1; /* Make sure it stays on top of other content */
 }
-
 .table-header-cell:nth-child(1),
 .table-header-cell:nth-child(2),
 .table-header-cell:nth-child(3),
@@ -70,8 +29,4 @@ body {
   color:dodgerblue;
   font-weight: bold; /* Make header text bold */
   font-size: larger;
-}
-
-.table-row {
-  background-color: white; /* Baby blue color */
 }

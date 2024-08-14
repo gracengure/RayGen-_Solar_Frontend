@@ -29,7 +29,7 @@ const HomePage = ({ cartCount }) => {
     <div className="page-wrapper">
       <nav className="nav">
         <div className="nav-logo">
-          <img alt="RayGen Solar Solutions" className="logo-image" />
+        <img alt="RayGen Solar Solutions" className="logo-image" />
         </div>
         <ul className="nav-menu">
           <li>

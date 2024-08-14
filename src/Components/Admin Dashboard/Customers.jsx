@@ -1,10 +1,9 @@
-
 import React, { useEffect, useState } from 'react';
 import {
-  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button,  InputAdornment
+  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, InputAdornment
 } from '@mui/material';
-import { Edit, Delete ,Search} from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom'; // To handle navigation
+import { Edit, Delete, Search } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 import './customers.css';
 
 const Customers = () => {
@@ -15,21 +14,17 @@ const Customers = () => {
   const [customerForm, setCustomerForm] = useState({
     name: '',
     email: '',
-    phone_number: '',
-    location: '',
-    orders: '',
-    total_expenditure: ''
+    phone_number: ''
   });
   const [searchTerm, setSearchTerm] = useState('');
-  const navigate = useNavigate(); // Use navigate to redirect user
+  const navigate = useNavigate();
 
   const fetchData = async (url, options = {}) => {
     try {
       const response = await fetch(url, options);
       if (response.status === 401) {
-        // Handle 401 Unauthorized
         setError('Session expired. Please log in again.');
-        navigate('/login'); // Redirect to login page
+        navigate('/login');
         return;
       }
       if (!response.ok) {
@@ -48,7 +43,7 @@ const Customers = () => {
       const token = localStorage.getItem("access_token");
       if (!token) {
         setError('Session expired. Please log in again.');
-        navigate('/login'); // Redirect to login page
+        navigate('/login');
         return;
       }
 
@@ -58,7 +53,7 @@ const Customers = () => {
             "Authorization": `Bearer ${token}`
           }
         });
-        setCustomers(data || []);  // Ensure data is an array
+        setCustomers(data || []);
       } catch (err) {
         setError('Error fetching customers.');
       }
@@ -72,10 +67,7 @@ const Customers = () => {
     setCustomerForm({
       name: customer.name,
       email: customer.email,
-      phone_number: customer.phone_number,
-      location: customer.location || '',
-      orders: customer.orders || '',
-      total_expenditure: customer.total_expenditure || ''
+      phone_number: customer.phone_number
     });
     setEditDialogOpen(true);
   };
@@ -151,8 +143,8 @@ const Customers = () => {
 
   return (
     <div className="customers-page">
-       <div className="header">
-        <Typography variant="h4" sx={{ color: 'navy' }} gutterBottom>
+      <div className="header">
+        <Typography variant="h4" sx={{ color: 'dodgerblue' }} gutterBottom>
           Customers
         </Typography>
         <TextField
@@ -160,7 +152,7 @@ const Customers = () => {
           value={searchTerm}
           onChange={handleSearchChange}
           className="search-bar"
-          placeholder="Search by Orders ...."
+          placeholder="Search by name or email..."
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -172,25 +164,24 @@ const Customers = () => {
             borderRadius: '70px',
             '& fieldset': {
               borderRadius: '70px',
-              borderColor: 'navy', // Navy border color
+              borderColor: 'dodgerblue',
             },
             '& input': {
-              color: 'navy', // Placeholder text color
+              color: 'navy',
             },
             '& .MuiOutlinedInput-root': {
               '& fieldset': {
-                borderColor: 'navy', // Border color of the text field
+                borderColor: 'dodgerblue',
               },
               '&:hover fieldset': {
-                borderColor: 'navy', // Border color on hover
+                borderColor: 'black',
               },
               '&.Mui-focused fieldset': {
-                borderColor: 'navy', // Border color when focused
+                borderColor: 'dodgerblue',
               },
             },
           }}
         />
-        
       </div>
       {error && <Typography color="error">{error}</Typography>}
       <TableContainer component={Paper} className="customer-container">
@@ -200,9 +191,6 @@ const Customers = () => {
               <TableCell className="table-cell">Name</TableCell>
               <TableCell className="table-cell">Email</TableCell>
               <TableCell className="table-cell">Phone number</TableCell>
-              <TableCell className="table-cell">Location</TableCell>
-              <TableCell className="table-cell">Orders</TableCell>
-              <TableCell className="table-cell">Total Expenditure</TableCell>
               <TableCell className="table-cell">Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -213,9 +201,6 @@ const Customers = () => {
                   <TableCell>{customer.name}</TableCell>
                   <TableCell>{customer.email}</TableCell>
                   <TableCell>{customer.phone_number}</TableCell>
-                  <TableCell>{customer.location || "N/A"}</TableCell>
-                  <TableCell>{customer.orders || "N/A"}</TableCell>
-                  <TableCell>{customer.total_expenditure || "N/A"}</TableCell>
                   <TableCell>
                     <IconButton
                       onClick={() => handleEdit(customer)}
@@ -234,7 +219,7 @@ const Customers = () => {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={7}>No customers found.</TableCell>
+                <TableCell colSpan={4}>No customers found.</TableCell>
               </TableRow>
             )}
           </TableBody>
@@ -264,30 +249,6 @@ const Customers = () => {
             label="Phone number"
             name="phone_number"
             value={customerForm.phone_number}
-            onChange={handleInputChange}
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            label="Location"
-            name="location"
-            value={customerForm.location}
-            onChange={handleInputChange}
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            label="Orders"
-            name="orders"
-            value={customerForm.orders}
-            onChange={handleInputChange}
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            label="Total Expenditure"
-            name="total_expenditure"
-            value={customerForm.total_expenditure}
             onChange={handleInputChange}
             fullWidth
           />
