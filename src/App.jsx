@@ -77,7 +77,7 @@ function App() {
   return (
     <>
       <HomePage cartCount={cartCount} />
-      <ProductsPage products={products} addToCart={addToCart} />
+      <ProductsPage products={products} addToCart={addToCart}/>
       <About />
       <Footer />
       

@@ -18,6 +18,7 @@ html {
   align-items: center; /* Align categories to the start of the container */
   margin-left: 100px;
   margin-right: 140px;
+  position: relative;
 }
 
 /* Individual category section */
@@ -44,7 +45,7 @@ html {
 
 /* Individual product card */
 .product-card {
-  width: 250px; /* Set width of each card */
+  width: 200px; /* Set width of each card */
   height: auto; /* Height will adjust based on content */
   border: 1px solid grey;
   border-radius: 10px;
@@ -54,9 +55,8 @@ html {
   background-color: #f0f0f0;
   display: flex;
   flex-direction: column; /* Stack elements vertically within the card */
-  align-items: center; /* Center items horizontally within the card */
-  text-align: center; /* Center text inside the card */
-  padding: 10px; /* Add padding inside the card */
+  /* Center text inside the card */
+  
 }
 
 /* Hover effect for product card */
@@ -67,12 +67,32 @@ html {
 /* Product name styling */
 .product-name {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  margin: 10px 0; /* Add margin above and below the product name */
+  
 }
 
+.product-price {
+  flex: 1; /* Takes up remaining space on the left */
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.add-to-cart-button {
+  flex-shrink: 0; /* Prevents shrinking of the button */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.add-to-cart-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
 /* Product image styling */
 .product-img {
-  width: 100%; /* Make image width responsive to card width */
+  width: 200px; /* Make image width responsive to card width */
   height: 200px; /* Fixed height for image */
   object-fit: cover; /* Cover the area of the image container */
   padding: 0; /* No extra padding around the image */
@@ -81,9 +101,10 @@ html {
 
 /* Product details section */
 .product-details {
-  font-weight: bold;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  padding-top: 10px; /* Add padding above the details */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
 }
 
 .container {
@@ -248,19 +269,36 @@ html {
   color: #666;
 }
 
-.payment-status {
+/* arrow styles */
+
+.pagination-container {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust to center vertically */
+  margin: 0 20px; /* Adjust left and right margins */
 }
 
-.success-message {
-  color: green;
+.arrow-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
 }
 
-
-.error-message {
-  color: red;
+.arrow-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
 }
 
+.arrow-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
 
