@@ -6,10 +6,10 @@ import './Footer.css';
 
 const Footer = () => {
     return (
-        <Container component="footer" maxWidth={false} sx={{ padding: '2rem', backgroundColor: '#f1f1f1' }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+        <Container component="footer" maxWidth={false} sx={{ padding: '2rem', backgroundColor: '#f1f1f1', overflowX: 'hidden' }}>
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', flexWrap: 'wrap' }}>
                 {/* Main Footer Sections */}
-                <Box sx={{ flex: 1, marginRight: '1rem' }}>
+                <Box sx={{ flex: 1, marginBottom: '1rem', marginRight: { sm: '1rem' } }}>
                     <Typography variant="h6" gutterBottom>Company</Typography>
                     <Typography variant="body2">
                         <Link to="/about" style={{ color: 'black', textDecoration: 'none' }}>About Us</Link>
@@ -24,7 +24,7 @@ const Footer = () => {
                     </Typography>
                 </Box>
 
-                <Box sx={{ flex: 1, marginRight: '1rem' }}>
+                <Box sx={{ flex: 1, marginBottom: '1rem', marginRight: { sm: '1rem' } }}>
                     <Typography variant="h6" gutterBottom>Useful Links</Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
                         <Link to="/signup" style={{ color: 'black', textDecoration: 'none' }}>Sign Up</Link>
@@ -34,7 +34,7 @@ const Footer = () => {
                     </Box>
                 </Box>
 
-                <Box sx={{ flex: 1, marginRight: '1rem' }}>
+                <Box sx={{ flex: 1, marginBottom: '1rem', marginRight: { sm: '1rem' } }}>
                     <Typography variant="h6" gutterBottom>Contact Us</Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
                         <Phone sx={{ marginRight: '0.5rem' }} />
@@ -52,7 +52,7 @@ const Footer = () => {
                     </Box>
                 </Box>
 
-                <Box sx={{ flex: 1 }}>
+                <Box sx={{ flex: 1, marginBottom: '1rem' }}>
                     <Typography variant="h6" gutterBottom>Follow Us</Typography>
                     <Box sx={{ display: 'flex', gap: '1rem' }}>
                         <IconButton
@@ -87,7 +87,6 @@ const Footer = () => {
                         >
                             <Instagram />
                         </IconButton>
-                        
                     </Box>
                 </Box>
             </Box>

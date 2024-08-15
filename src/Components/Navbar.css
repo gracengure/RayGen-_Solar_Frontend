@@ -1,3 +1,5 @@
+
+
 .page-wrapper {
   background-image: url('src/assets/WhatsApp Image 2024-08-02 at 15.17.50.jpeg'); 
   background-size: cover;
@@ -23,7 +25,6 @@
   justify-content: space-between;
   z-index: 1000; 
   border-bottom: 2px solid #8d8181; 
-  
 }
 
 .nav-logo {
@@ -60,7 +61,7 @@
   padding: 8px 16px;
   font-size: 16px;
   color: rgb(12, 11, 11);
-  background-color: #008cff; 
+  background-color: #3d97f1; 
   border: none;
   border-radius: 20px;
   cursor: pointer;
