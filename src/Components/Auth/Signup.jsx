@@ -1,10 +1,11 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import { Grid, Typography, TextField, Button, IconButton, Box, InputAdornment, Snackbar } from '@mui/material';
 import { ArrowBack as ArrowBackIcon, Visibility, VisibilityOff } from '@mui/icons-material';
 import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 import image from '../../assets/Screenshot from 2024-07-31 09-23-45.png';
 
 const styles = {
@@ -23,10 +24,8 @@ const validationSchema = Yup.object({
     .required('Name is required'),
   email: Yup.string()
     .email('Invalid email address')
-    .matches(/@gmail\.com$/, 'Email must be a valid Gmail address!')
     .required('Email is required'),
   phone_number: Yup.string()
-    .matches(/^\+\d+/, 'Phone number must include a country code!')
     .required('Phone number is required'),
   password: Yup.string()
     .min(6, 'Password must be at least 6 characters long!')
@@ -76,7 +75,6 @@ const SignUp = () => {
       setErrorMessage(`Error: ${error.message}`);
     }
   };
-  
 
   const handleSnackbarClose = () => {
     setSuccessMessage('');
@@ -105,7 +103,7 @@ const SignUp = () => {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            {({ values, handleChange, handleBlur, errors, touched }) => (
+            {({ values, handleChange, handleBlur, setFieldValue, errors, touched }) => (
               <Box sx={styles.formContainer}>
                 <Form>
                   <Field
@@ -134,19 +132,30 @@ const SignUp = () => {
                     error={touched.email && Boolean(errors.email)}
                     helperText={<ErrorMessage name="email" />}
                   />
-                  <Field
-                    as={TextField}
-                    label="Phone Number"
-                    name="phone_number"
-                    variant="outlined"
-                    fullWidth
-                    margin="normal"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.phone_number}
-                    error={touched.phone_number && Boolean(errors.phone_number)}
-                    helperText={<ErrorMessage name="phone_number" />}
-                  />
+                  <Field name="phone_number">
+                    {({ field }) => (
+                      <PhoneInput
+                        country={'auto'}
+                        value={field.value}
+                        onChange={phone => setFieldValue('phone_number', phone)}
+                        onBlur={handleBlur}
+                        inputProps={{
+                          name: 'phone_number',
+                          required: true,
+                          autoFocus: true,
+                        }}
+                        specialLabel="Phone Number"
+                        containerStyle={{ marginBottom: '16px' }}
+                        inputStyle={{
+                          width: '100%',
+                          height: '56px',
+                          fontSize: '16px',
+                          paddingLeft: '48px',
+                        }}
+                      />
+                    )}
+                  </Field>
+                  <ErrorMessage name="phone_number" component="div" style={{ color: 'red', fontSize: '12px' }} />
                   <Field
                     as={TextField}
                     label="Password"
@@ -163,7 +172,7 @@ const SignUp = () => {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
-                          <IconButton onClick={() => handleChange({ target: { name: 'showPassword', value: !values.showPassword } })}>
+                          <IconButton onClick={() => setFieldValue('showPassword', !values.showPassword)}>
                             {values.showPassword ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
                         </InputAdornment>
@@ -186,7 +195,7 @@ const SignUp = () => {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
-                          <IconButton onClick={() => handleChange({ target: { name: 'showRepeatPassword', value: !values.showRepeatPassword } })}>
+                          <IconButton onClick={() => setFieldValue('showRepeatPassword', !values.showRepeatPassword)}>
                             {values.showRepeatPassword ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
                         </InputAdornment>
@@ -211,7 +220,8 @@ const SignUp = () => {
             ContentProps={{
               style: {
                 backgroundColor: successMessage ? 'green' : 'red',
-              },
+                color: '#fff'
+              }
             }}
           />
         </div>

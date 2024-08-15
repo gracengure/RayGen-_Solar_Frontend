@@ -44,7 +44,7 @@ function Cart({ cartItems, updateCart }) {
   const handleCheckout = async () => {
     let phoneNumber = localStorage.getItem('phone_number');
     
-    if (phoneNumber.startsWith('+')) {
+    if (phoneNumber && phoneNumber.startsWith('+')) {
       phoneNumber = phoneNumber.substring(1);
     }
   
@@ -66,16 +66,19 @@ function Cart({ cartItems, updateCart }) {
       });
   
       if (response.ok) {
-        const paymentResponse = await response.json(); 
+        const paymentResponse = await response.json();
   
-        if (paymentResponse.success) { 
+        if (paymentResponse.success) {
           setPaymentStatus('Payment successful!');
-  
+          
           setCart([]);
           localStorage.removeItem('cart');
           updateCart([]);
   
-          navigate('/checkout');
+          // Delay navigation to ensure the message is visible
+          setTimeout(() => {
+            navigate('/checkout');
+          }, 2000); // 2-second delay
         } else {
           setPaymentStatus('Payment failed. Please try again.');
         }
@@ -88,7 +91,8 @@ function Cart({ cartItems, updateCart }) {
     } finally {
       setLoading(false);
     }
-  };  
+  };
+   
 
   if (cart.length === 0) {
     return <div className="empty-cart">Your cart is empty!</div>;
