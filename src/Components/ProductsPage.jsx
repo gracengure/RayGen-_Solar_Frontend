@@ -16,13 +16,12 @@ const ProductsPage = ({ products, addToCart }) => {
   const [snackbar, setSnackbar] = useState({ visible: false, message: "" });
 
   const handleAddToCart = (productId) => {
-    const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+    addToCart(productId);
+    showSnackbar("Product has been added to cart");
 
-    if (isAuthenticated) {
-      addToCart(productId);
-      showSnackbar("Product has been added to cart");
-    } else {
-      navigate("/login");
+    const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+    if (!isAuthenticated) {
+      showSnackbar("Please log in to proceed with checkout.");
     }
   };
 
@@ -39,13 +38,9 @@ const ProductsPage = ({ products, addToCart }) => {
   return (
     <div className="product-container">
       {Object.keys(categorizedProducts).map((category) => (
-        <div
-          key={category}
-          
-          className="category-section"
-        >
-           <h1 id={category}></h1>
-           <h2 className="category-title">{category}</h2>
+        <div key={category} className="category-section">
+          <h1 id={category}></h1>
+          <h2 className="category-title">{category}</h2>
           <div className="product-list">
             {categorizedProducts[category].map((product) => (
               <div key={product.id} className="product-card">
