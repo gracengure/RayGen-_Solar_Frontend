@@ -4,6 +4,7 @@ html, body {
   padding: 0;
   width: 100%;
   overflow-x: hidden; /* Prevents horizontal scrolling */
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif; /* Apply font globally */
 }
 
 /* Container that spans the full viewport width */

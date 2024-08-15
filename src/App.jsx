@@ -7,6 +7,7 @@ import Footer from "./Footer";
 import About from "./About";
 
 import Cart from "./Components/cart"; 
+import  Dashboard  from "./Components/Admin Dashboard/Dashboard"
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -80,7 +81,7 @@ function App() {
       <ProductsPage products={products} addToCart={addToCart}/>
       <About />
       <Footer />
-      
+      <Dashboard/>
       {/* <Cart cartItems={cartItems} updateCart={setCartItems} /> Pass props */}
     </>
   );
