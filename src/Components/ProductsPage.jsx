@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingBasket, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const groupByCategory = (products) => {
   return products.reduce((categories, product) => {
@@ -39,14 +39,16 @@ const ProductsPage = ({ products = [], addToCart }) => {
     }, 3000);
   };
 
+  const handlePageChange = (pageIndex) => {
+    setCurrentPage(pageIndex);
+  };
+
   const handlePreviousPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) =>
-      Math.min(prevPage + 1, categories.length - 1)
-    );
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, categories.length - 1));
   };
 
   // Ensure the current category and productsToShow exist
@@ -59,6 +61,7 @@ const ProductsPage = ({ products = [], addToCart }) => {
         {/* Render only if the category and products exist */}
         {currentCategory && (
           <div key={currentCategory} className="category-section">
+              <h1 id={currentCategory}></h1>
             <h2 className="category-title">{currentCategory}</h2>
             <div className="product-list">
               {productsToShow.map((product) => (
@@ -95,14 +98,15 @@ const ProductsPage = ({ products = [], addToCart }) => {
             disabled={currentPage === 0}
             className="arrow-button"
           >
-            &larr;
+            <FontAwesomeIcon icon={faChevronLeft} />
           </button>
+          <span className="page-number">{currentPage + 1}</span>
           <button
             onClick={handleNextPage}
             disabled={currentPage === categories.length - 1}
             className="arrow-button"
           >
-            &rarr;
+            <FontAwesomeIcon icon={faChevronRight} />
           </button>
         </div>
       )}

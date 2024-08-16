@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart, AccountCircle } from '@mui/icons-material';
 import './Navbar.css';
 import { FaCaretDown } from 'react-icons/fa';
+import image from '../assets/logo.jpg';
 const HomePage = ({ cartCount }) => {
   const [isDropdown, setIsDropdown] = useState(false);
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const HomePage = ({ cartCount }) => {
     <div className="page-wrapper">
       <nav className="nav">
         <div className="nav-logo">
-        <img alt="RayGen Solar Solutions" className="logo-image" />
+          <img  src={image} alt="RayGen Solar Solutions" className="logo-image" />
         </div>
         <ul className="nav-menu">
           <li>

@@ -14,6 +14,7 @@ import About from "./About.jsx";
 import UserProfile from "./Components/UserProfile.jsx";
 import Verification from "./Components/Auth/verification.jsx";
 import Cart from "./Components/cart.jsx"; 
+import ProductsPage from "./Components/ProductsPage.jsx";
 
 // Admin Dashboard Components
 import Dashboard from "./Components/Admin Dashboard/Dashboard.jsx";
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <HomePage />,
+  },
+  {
+    path: "/productspage",
+    element: <ProductsPage />,
   },
   {
     path: "/login",
