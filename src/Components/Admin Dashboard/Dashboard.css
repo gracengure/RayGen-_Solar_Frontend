@@ -75,3 +75,81 @@ body {
 .table-row {
   background-color: white; /* Baby blue color */
 }
+
+.content {
+  margin-left: 10px;
+}
+
+.welcome-heading {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.date-display {
+  font-weight: bold;
+  font-size: 20px;
+  color: #6D6D6D;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.card {
+  flex: 1;
+  width: 500px;
+  margin: 10px;
+  height: 95px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  font-size: 24px; /* Adjust size as needed */
+  color: #fff;
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-details h4 {
+  font-size: 13px;
+  color: #6D6D6D;
+}
+
+.card-value {
+  color: #292D32;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.chart-container {
+  
+  width: 100%;
+
+  margin-left: auto;
+  margin-right: auto;
+}
