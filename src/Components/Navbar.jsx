@@ -1,0 +1,76 @@
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ShoppingCart, AccountCircle } from '@mui/icons-material';
+import './Navbar.css';
+import { FaCaretDown } from 'react-icons/fa';
+
+const Navbar = ({ cartCount }) => {
+  const [isDropdown, setIsDropdown] = useState(false);
+  const navigate = useNavigate();
+  
+  function toggleDropdown() {
+    setIsDropdown(!isDropdown);
+  }
+
+  const handleSignOut = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("id");
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem('cart');
+    navigate("/login");
+  };
+
+  const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+
+  return (
+    <nav className="nav">
+      <div className="nav-logo">
+        <img alt="RayGen Solar Solutions" className="logo-image" />
+      </div>
+      <ul className="nav-menu">
+        <li>
+          <Link to="/home">Home</Link>
+        </li>
+        <li className="navbar-categories">
+          Products
+          <FaCaretDown onClick={toggleDropdown} />
+          {isDropdown && (
+            <ul className="dropdown">
+              <li><a href="#Solar Panel light">Solar Panel</a></li>
+              <li><a href="#Solar Wall Light">Solar Wall</a></li>
+              <li><a href="#Solar Street Light">Solar Street Lights</a></li>
+            </ul>
+          )}
+        </li>
+        <li>
+          <Link to="/about">About</Link>
+        </li>
+        <li>
+          <Link to="/cart">
+            <ShoppingCart className="nav-icon" />
+            <span className="cart-count-badge">{cartCount}</span>
+          </Link>
+        </li>
+        {isAuthenticated && (
+          <li className="nav-item">
+            <Link to="/profile">
+              <AccountCircle className="nav-icon" />
+            </Link>
+          </li>
+        )}
+        <li className="nav-item">
+          {isAuthenticated ? (
+            <button className="sign-up-button" onClick={handleSignOut}>Sign Out</button>
+          ) : (
+            <Link to="/signup">
+              <button className="sign-up-button">Sign Up</button>
+            </Link>
+          )}
+        </li>
+      </ul>
+    </nav>
+  );
+};
+
+export default Navbar;

@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 function Cart({ cartItems, updateCart }) {
   const [cart, setCart] = useState([]);
@@ -80,12 +84,46 @@ function Cart({ cartItems, updateCart }) {
                 <td>{item.name}</td>
                 <td>${item.price}</td>
                 <td>
-                  <button onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
+                  <IconButton
+                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                    disabled={item.quantity <= 1}
+                    sx={{
+                      color: '#ff4c4c',
+                      '&:disabled': {
+                        color: '#ddd',
+                      },
+                    }}
+                  >
+                    <RemoveIcon />
+                  </IconButton>
                   {item.quantity}
-                  <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                  <IconButton
+                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                    sx={{
+                      color: '#4caf50',
+                    }}
+                  >
+                    <AddIcon />
+                  </IconButton>
                 </td>
                 <td>
-                  <button onClick={() => removeFromCart(item.id)}>Remove</button>
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => removeFromCart(item.id)}
+                    sx={{
+                      color: '#ff4c4c', 
+                      '&:hover': {
+                        backgroundColor: '#ffe5e5', 
+                        color: '#ff0000', 
+                      },
+                      '&:active': {
+                        transform: 'scale(0.9)', 
+                      },
+                      transition: 'transform 0.2s ease', 
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
                 </td>
               </tr>
             ))}
