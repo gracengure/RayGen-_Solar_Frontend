@@ -1,0 +1,15 @@
+.footer {
+    background-color: #f1f1f1;
+    padding: 2rem 0;
+}
+
+.social-media-section {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.socialmedia img {
+    width: 24px;
+    height: 24px;
+    margin: 0 8px;
+}
