@@ -55,6 +55,7 @@ const ProductsPage = ({ products = [], addToCart }) => {
         {/* Render only if the category and products exist */}
         {currentCategory && (
           <div key={currentCategory} className="category-section">
+            
             <h2 className="category-title">{currentCategory}</h2>
             <div className="product-list">
               {productsToShow.map((product) => (
