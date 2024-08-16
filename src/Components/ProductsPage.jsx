@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,22 +14,16 @@ const groupByCategory = (products) => {
 };
 
 const ProductsPage = ({ products = [], addToCart }) => {
-  const navigate = useNavigate();
   const [snackbar, setSnackbar] = useState({ visible: false, message: "" });
+  const [currentPage, setCurrentPage] = useState(0);
 
   // Group products by category
   const categorizedProducts = groupByCategory(products);
   const categories = Object.keys(categorizedProducts);
-  const [currentPage, setCurrentPage] = useState(0);
 
   const handleAddToCart = (productId) => {
-    const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
-    if (isAuthenticated) {
-      addToCart(productId);
-      showSnackbar("Product has been added to cart");
-    } else {
-      navigate("/login");
-    }
+    addToCart(productId);
+    showSnackbar("Product has been added to cart");
   };
 
   const showSnackbar = (message) => {
@@ -61,7 +55,6 @@ const ProductsPage = ({ products = [], addToCart }) => {
         {/* Render only if the category and products exist */}
         {currentCategory && (
           <div key={currentCategory} className="category-section">
-              <h1 id={currentCategory}></h1>
             <h2 className="category-title">{currentCategory}</h2>
             <div className="product-list">
               {productsToShow.map((product) => (

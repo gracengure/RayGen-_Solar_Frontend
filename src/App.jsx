@@ -1,12 +1,8 @@
-
-// app.jsx
-
 import React, { useState, useEffect } from "react";
 import ProductsPage from "./Components/ProductsPage";
 import HomePage from "./Components/HomePage";
 import Footer from "./Footer";
 import About from "./About";
-
 import Cart from "./Components/cart"; 
 
 function App() {
@@ -14,6 +10,7 @@ function App() {
   const [error, setError] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     fetch("http://127.0.0.1:5000/products")
@@ -25,6 +22,7 @@ function App() {
       })
       .then((data) => {
         setProducts(data);
+        setSearchResults(data); // Initialize search results with all products
       })
       .catch((error) => {
         console.error("Fetch error:", error);
@@ -34,6 +32,18 @@ function App() {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(savedCart);
   }, []);
+
+  const handleSearch = async (name, category) => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:5000/products/search?name=${name}&category=${category}`
+      );
+      const data = await response.json();
+      setSearchResults(data);
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
+  };
 
   const addToCart = (productId) => {
     const product = products.find((p) => p.id === productId);
@@ -75,13 +85,20 @@ function App() {
     return <div>Error: {error}</div>;
   }
 
+
   return (
     <>
-      <HomePage cartCount={cartCount} />
-      <ProductsPage products={products} addToCart={addToCart}/>
+      <HomePage 
+        cartCount={cartCount} 
+        handleSearch={handleSearch} 
+        searchResults={searchResults}
+      />
+      <ProductsPage
+              products={searchResults} // Pass search results to ProductsPage
+              addToCart={addToCart}
+            />
       <About />
       <Footer />
-     
       {/* <Cart cartItems={cartItems} updateCart={setCartItems} /> Pass props */}
     </>
   );

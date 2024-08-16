@@ -4,10 +4,12 @@ import { ShoppingCart, AccountCircle } from '@mui/icons-material';
 import './Navbar.css';
 import { FaCaretDown } from 'react-icons/fa';
 import image from '../assets/logo.jpg';
-const HomePage = ({ cartCount }) => {
+import SearchBar from './SearchBar'; // Import your SearchBar component
+
+const HomePage = ({ cartCount, handleSearch }) => {
   const [isDropdown, setIsDropdown] = useState(false);
   const navigate = useNavigate();
-  
+
   function toggleDropdown() {
     setIsDropdown(!isDropdown);
   }
@@ -19,8 +21,6 @@ const HomePage = ({ cartCount }) => {
     localStorage.removeItem("id");
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem('cart');
-    
-    // Optionally redirect to the login page
     navigate("/login");
   };
 
@@ -30,8 +30,9 @@ const HomePage = ({ cartCount }) => {
     <div className="page-wrapper">
       <nav className="nav">
         <div className="nav-logo">
-          <img  src={image} alt="RayGen Solar Solutions" className="logo-image" />
+          <img src={image} alt="RayGen Solar Solutions" className="logo-image" />
         </div>
+        <SearchBar handleSearch={handleSearch} /> 
         <ul className="nav-menu">
           <li>
             <Link to="/home">Home</Link>
@@ -76,11 +77,15 @@ const HomePage = ({ cartCount }) => {
       </nav>
       
       <main className="content">
-        {/* Content goes here */}
-       
+        <div className="box-container">
+          <h1>Empowering a sustainable future with cutting-edge solar solutions.</h1>
+          <h2>Harness the power of the sun with RayGen—where innovation meets energy efficiency.</h2>
+          {/* Include SearchBar */}
+        </div>
+        
       </main>
     </div>
   );
 };
-
+ 
 export default HomePage;

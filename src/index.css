@@ -300,3 +300,48 @@ html {
   font-weight: bold;
   margin: 0 10px;
 }
+
+
+
+
+
+.search-bar {
+  display: flex;
+  justify-content: center; /* Center the search bar horizontally */
+  width: 100%;
+  margin-left: 150px;
+  margin-top: 10px;
+}
+
+.search-bar-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px; /* Adjust max width as needed */
+}
+.search-bar-container input::placeholder {
+  color:black; /* Adjust placeholder color */
+  font-weight: bold; /* Make placeholder text bold */
+}
+
+.search-bar-container input {
+  width: 100%;
+  padding: 10px 40px 10px 15px; /* Add padding to account for the icon */
+  border: 1px solid black;
+  border-radius: 50px;
+}
+
+.search-icon-button {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust position of the icon */
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: black;
+  padding: 0;
+}
+
+.search-icon-button .fa-search {
+  font-size: 18px; /* Adjust the size of the icon */
+}
