@@ -1,0 +1,155 @@
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  background-color: white; 
+}
+
+
+
+/* Styles for the Products page */
+.products-container {
+  padding: 0;
+  height: calc(100vh - 40px); /* Adjust based on header height */
+  padding-top: 80px;
+  overflow: hidden; /* Hide scrollbar on the container */
+  background-color:white; /* Optional: add a background color for contrast */
+  width: 1160px;
+}
+
+.table-container {
+  max-height: 100%;
+  overflow-y: auto; /* Enable vertical scrolling within the table container */
+
+}
+
+.products-image {
+  width: 50px;
+  height: 50px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar {
+  margin-right: 10px; /* Adjust spacing between the search bar and the button */
+  width: 400px;
+}
+
+/* .add-product-button {
+  white-space: nowrap;
+} */
+
+.table-header-cell {
+  font-weight: bold;
+  background-color: white; /* Optional: Light gray background for header */
+  position: sticky;
+  top: 0; /* Ensure the header sticks to the top */
+  z-index: 1; /* Make sure it stays on top of other content */
+}
+
+.table-header-cell:nth-child(1),
+.table-header-cell:nth-child(2),
+.table-header-cell:nth-child(3),
+.table-header-cell:nth-child(4),
+.table-header-cell:nth-child(5),
+.table-header-cell:nth-child(6) {
+  color:dodgerblue;
+  font-weight: bold; /* Make header text bold */
+  font-size: larger;
+}
+
+.table-row {
+  background-color: white; /* Baby blue color */
+}
+
+.content {
+  margin-left: 10px;
+}
+
+.welcome-heading {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.date-display {
+  font-weight: bold;
+  font-size: 20px;
+  color: #6D6D6D;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.card {
+  flex: 1;
+  width: 500px;
+  margin: 10px;
+  height: 95px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  font-size: 24px; /* Adjust size as needed */
+  color: #fff;
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-details h4 {
+  font-size: 13px;
+  color: #6D6D6D;
+}
+
+.card-value {
+  color: #292D32;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.chart-container {
+  
+  width: 100%;
+
+  margin-left: auto;
+  margin-right: auto;
+}

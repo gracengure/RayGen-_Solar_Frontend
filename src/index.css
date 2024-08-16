@@ -2,8 +2,346 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+
+}
+html {
+  scroll-behavior: smooth;
 }
 
 :root {
-  background-color: rgb(239, 240, 237);
+  background-color: rgb(249, 249, 247);
+}
+.product-container {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column; /* Align categories vertically */
+  align-items: center; /* Align categories to the start of the container */
+  margin-left: 100px;
+  margin-right: 140px;
+  position: relative;
+}
+
+/* Individual category section */
+.category-section {
+  width: 100%; /* Full width for each category section */
+  margin-bottom: 50px; /* Space between categories */
+}
+
+/* Category title */
+.category-title {
+  font-size:xx-large;
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+/* Container for products within a category */
+.product-list {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping of product cards */
+  gap: 25px; /* Space between product cards */
+  justify-content: flex-start; /* Align product cards to the start of the container */
+}
+
+/* Individual product card */
+.product-card {
+  width: 200px; /* Set width of each card */
+  height: auto; /* Height will adjust based on content */
+  border: 1px solid grey;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically within the card */
+  /* Center text inside the card */
+  
+}
+
+/* Hover effect for product card */
+.product-card:hover {
+  transform: scale(1.05); /* Scale the card slightly on hover */
+}
+
+/* Product name styling */
+.product-name {
+  font-family:fantasy;
+  
+}
+
+.product-price {
+  flex: 1; /* Takes up remaining space on the left */
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.add-to-cart-button {
+  flex-shrink: 0; /* Prevents shrinking of the button */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.add-to-cart-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+/* Product image styling */
+.product-img {
+  width: 200px; /* Make image width responsive to card width */
+  height: 200px; /* Fixed height for image */
+  object-fit: cover; /* Cover the area of the image container */
+  padding: 0; /* No extra padding around the image */
+  margin-bottom: 10px; /* Space below the image */
+}
+
+/* Product details section */
+.product-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  min-height: 100vh; /* Ensure it takes at least full viewport height */
+  padding: 20px; /* Add padding to prevent content from touching edges */
+  background-color: #f9f9f9; /* Optional: background color for the whole page */
+}
+
+.product-specs-card {
+  max-width: 500px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.product-specs-header {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+
+.product-image {
+  max-width: 200px; /* Adjust as needed */
+  height: auto;
+  margin-right: 16px; /* Space between image and details */
+}
+
+.details-container {
+  flex: 1;
+}
+
+.product-name {
+  margin-bottom: 8px;
+}
+
+.property-spec {
+  margin-bottom: 8px;
+}
+
+.spec-label {
+  font-weight: bold;
+}
+
+.reviews-container {
+  
+  padding: 10px;
+}
+.review {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.review p {
+  margin: 5px 0;
+}
+
+.star-rating {
+  display: inline-block;
+  color: #fff01e; /* DodgerBlue color */
+}
+
+.star-rating .star {
+  font-size: 20px; /* Adjust size as needed */
+  margin-right: 2px; /* Adjust space between stars */
+}
+
+.snackbar {
+  position: fixed;
+  top: 20px;
+  left: 70%;
+  transform: translateX(-50%);
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1000;
+  opacity: 0.9;
+  font-size: 16px;
+}
+
+.snackbar.success {
+  background-color: #4CAF50;
+}
+
+.cart-container {
+  padding: 20px;
+}
+
+.cart-table-container {
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  border-radius: 8px;
+  overflow: hidden; 
+  margin-top: 20px
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.cart-table th, .cart-table td {
+  padding: 10px;
+  text-align: left; /* Align text to the left */
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.cart-image {
+  width: 50px; /* Adjust as needed */
+  height: auto;
+}
+
+.cart-summary {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.cart-summary h3 {
+  margin: 0;
+  flex: 1;
+}
+
+.cart-summary p {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0 20px; /* Space between total amount and checkout button */
+}
+
+.checkout-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.checkout-button:hover {
+  background-color: #218838;
+}
+
+.empty-cart {
+  font-size: 1.5em;
+  color: #666;
+}
+
+/* arrow styles */
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.arrow-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  margin: 0 10px;
+}
+
+.arrow-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.page-number {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+
+
+
+
+.search-bar {
+  display: flex;
+  justify-content: center; /* Center the search bar horizontally */
+  width: 100%;
+  margin-left: 150px;
+  margin-top: 10px;
+}
+
+.search-bar-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px; /* Adjust max width as needed */
+}
+.search-bar-container input::placeholder {
+  color:black; /* Adjust placeholder color */
+  font-weight: bold; /* Make placeholder text bold */
+}
+
+.search-bar-container input {
+  width: 100%;
+  padding: 10px 40px 10px 15px; /* Add padding to account for the icon */
+  border: 1px solid black;
+  border-radius: 50px;
+}
+
+.search-icon-button {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust position of the icon */
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: black;
+  padding: 0;
+}
+
+.search-icon-button .fa-search {
+  font-size: 18px; /* Adjust the size of the icon */
 }
