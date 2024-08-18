@@ -1,7 +1,8 @@
-# RayGen Solar Solutions
+ (RayGen Solar Solutions Website)
 
-*Date:* 2024/08/15  
-*By:*  
+## Date: 2024/08/15  
+
+## By: 
 1. Grace Ngure  
 2. Charity Wanjiku  
 3. Victor Wahinya  
@@ -49,8 +50,8 @@ RayGen Solar Solutions web application includes the following features:
 - *Wireframes*: Figma (GUI-graphical user interface design)
 - *Frontend*: React
 - *Frontend Styling*: CSS/Bootstrap/MUI
-- *Testing*: Jest & pytest
-- *Deployment*: Render, AWS
+- *Testing*:  pytest
+- *Deployment*: Render, netlify
 
 ## Installation
 ### Backend
