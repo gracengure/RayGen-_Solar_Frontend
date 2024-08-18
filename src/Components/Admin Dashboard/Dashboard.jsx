@@ -83,7 +83,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <Sidebar />
-      <div className="content">
+      <div style={{ marginTop: '15px', marginLeft: '15px' }}>
         <h2 className="welcome-heading">Welcome to the Admin Dashboard</h2>
         <span className="date-display">{formattedDateLeft}</span>
         <Outlet />
@@ -143,11 +143,16 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-
         <div className="chart-container">
           <ProductSalesChart />
         </div>
       </div>
+      {/* <div className="content_1">
+
+        
+
+
+      </div> */}
     </div>
   );
 };

@@ -1,34 +1,48 @@
-.customers-page{
-    padding: 0;
-    height: calc(100vh - 40px); /* Adjust based on header height */
-    padding-top: 75px;
-    overflow: hidden; /* Hide scrollbar on the container */
-    background-color: white; /* Optional: add a background color for contrast */
-    width: 1160px;
-  }
-  .customer-container {
-    max-height: 100%;
-    overflow-y: auto; /* Enable vertical scrolling within the table container */
-  }
-  .table-cell {
-    font-weight: bold;
-    background-color: white; /* Optional: Light gray background for header */
-    position: sticky;
-    top: 0; /* Ensure the header sticks to the top */
-    z-index: 1; /* Make sure it stays on top of other content */
-  }
-  
-  .table-cell:nth-child(1),
-  .table-cell:nth-child(2),
-  .table-cell:nth-child(3),
-  .table-cell:nth-child(4),
-  .table-cell:nth-child(5),
-  .table-cell:nth-child(6),
-  .table-cell:nth-child(7) {
-    color: dodgerblue;
-    font-weight: bold; /* Make header text bold */
-    font-size: larger;
-  }
-  .customer-row {
-    background-color: white; /* Baby blue color */
-  }
+.customers-page {
+  padding: 0;
+  height: calc(100vh - 40px); /* Adjust based on header height */
+  padding-top: 75px;
+  padding-left: 260px; /* Add padding to accommodate the sidebar width */
+  overflow: hidden; /* Hide scrollbar on the container */
+  background-color: white; /* Optional: add a background color for contrast */
+  width: calc(100% - 260px); /* Adjust the width to take into account the sidebar */
+}
+
+.customer-container {
+  max-height: 100%;
+  overflow-y: auto; /* Enable vertical scrolling within the table container */
+  padding-right: 20px; /* Optional: Add padding to ensure content does not touch the right edge */
+}
+
+.table-cell {
+  font-weight: bold;
+  background-color: white; /* Optional: Light gray background for header */
+  position: sticky;
+  top: 0; /* Ensure the header sticks to the top */
+  z-index: 1; /* Make sure it stays on top of other content */
+}
+
+.table-cell:nth-child(1),
+.table-cell:nth-child(2),
+.table-cell:nth-child(3),
+.table-cell:nth-child(4) {
+  color: dodgerblue;
+  font-weight: bold; /* Make header text bold */
+  font-size: larger;
+}
+
+.customer-row {
+  background-color: white; /* Ensure rows have the same background color */
+}
+
+/* Ensure the header area and other content are not hidden by the sidebar */
+.header {
+  margin-left: 260px; /* Adjust header to align with the content, accommodating the sidebar */
+  padding-right: 20px; /* Optional: Add some padding to the right */
+}
+
+/* Optional: Adjust the search bar to fit within the new layout */
+.search-bar {
+  width: 300px; /* Adjust the width to fit within the new layout */
+  margin-right: 20px; /* Optional: Add some spacing to the right */
+}

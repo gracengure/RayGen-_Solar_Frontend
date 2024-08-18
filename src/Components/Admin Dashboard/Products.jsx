@@ -4,6 +4,8 @@ import {
 } from '@mui/material';
 import { Edit, Delete, Add, Search } from '@mui/icons-material';
 import './Dashboard.css'; // Import custom styles
+import Sidebar from './Sidebar';
+
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -180,6 +182,7 @@ const Products = () => {
 
   return (
     <div className="products-container">
+      <Sidebar />
       <div className="header">
         <Typography variant="h4" sx={{ color: 'dodgerblue' }} gutterBottom>
           Products
@@ -235,15 +238,15 @@ const Products = () => {
       </div>
 
       {error && <Typography color="error">{error}</Typography>}
-      <TableContainer component={Paper} className="table-container">
+      <TableContainer component={Paper} className="table-container" style={{ width: '80%' }}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell className="table-header-cell">Name</TableCell>
-              <TableCell className="table-header-cell">Image</TableCell>
-              <TableCell className="table-header-cell">Category</TableCell>
-              <TableCell className="table-header-cell">Price</TableCell>
-              <TableCell className="table-header-cell">Stock Quantity</TableCell>
+              <TableCell className="table-header-cell" style={{ width: '250px' }}>Name</TableCell>
+              <TableCell className="table-header-cell" style={{ width: '50px' }}>Image</TableCell>
+              <TableCell className="table-header-cell" style={{ width: '200px' }}>Category</TableCell>
+              <TableCell className="table-header-cell" style={{ width: '250px' }}>Price</TableCell>
+              <TableCell className="table-header-cell" style={{ width: '250px' }}>Stock Quantity</TableCell>
               <TableCell className="table-header-cell">Actions</TableCell>
             </TableRow>
           </TableHead>

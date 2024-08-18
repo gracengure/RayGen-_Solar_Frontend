@@ -5,6 +5,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
+import { Outlet } from 'react-router-dom';
 
 import HomePage from "./Components/HomePage.jsx";
 import Signup from './Components/Auth/Signup.jsx';
@@ -71,8 +72,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: <Outlet />,
     children: [
+      {
+        path: "home",
+        element: <Dashboard />, 
+      },
       {
         path: "products",
         element: <Products />,
@@ -85,12 +90,8 @@ const router = createBrowserRouter([
         path: "customers",
         element: <Customers />,
       },
-      {
-        path: "home",
-        element: <Home />,
-      },
     ],
-  },
+  }
 ]);
 
 // Render the application

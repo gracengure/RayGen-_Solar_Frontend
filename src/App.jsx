@@ -25,7 +25,7 @@ function App() {
         setSearchResults(data); // Initialize search results with all products
       })
       .catch((error) => {
-        console.error("Fetch error:", error);
+        // console.error("Fetch error:", error);
         setError(error.message);
       });
 

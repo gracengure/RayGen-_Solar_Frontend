@@ -18,13 +18,14 @@ body {
   padding-top: 80px;
   overflow: hidden; /* Hide scrollbar on the container */
   background-color:white; /* Optional: add a background color for contrast */
-  width: 1160px;
+  width: 100%;
 }
 
 .table-container {
   max-height: 100%;
-  overflow-y: auto; /* Enable vertical scrolling within the table container */
-
+  overflow-y: auto;
+  /* width: 700px; */
+  margin-left: 250px;
 }
 
 .products-image {
@@ -147,9 +148,9 @@ body {
 }
 
 .chart-container {
-  
+  margin-top: 20px;
   width: 100%;
-
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }

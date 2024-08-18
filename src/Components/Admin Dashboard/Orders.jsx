@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 import { Edit, Delete, Search } from '@mui/icons-material';
 import './orders.css'; // Import custom styles
+import Sidebar from './Sidebar';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -152,7 +153,8 @@ const Orders = () => {
   };
 
   return (
-    <div className="orders-container">
+    <div className="orders-container" style={{ width: '100%' }}>
+      <Sidebar />
       <div className="header">
         <Typography variant="h4" sx={{ color: 'dodgerblue' }} gutterBottom>
           Orders
@@ -199,17 +201,17 @@ const Orders = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell className="table-header-cell">Customer Name</TableCell>
-              <TableCell className="table-header-cell">Order Date</TableCell>
-              <TableCell className="table-header-cell">Total Expenditure</TableCell>
-              <TableCell className="table-header-cell">Order Status</TableCell>
-              <TableCell className="table-header-cell">Delivery Date</TableCell>
+              <TableCell className="table-header-cell" style={{ width: '250px' }}>Customer Name</TableCell>
+              <TableCell className="table-header-cell" style={{ width: '200px' }}>Order Date</TableCell>
+              <TableCell className="table-header-cell" style={{ width: '250px' }}>Total Expenditure</TableCell>
+              <TableCell className="table-header-cell" style={{ width: '250px' }}>Order Status</TableCell>
+              <TableCell className="table-header-cell" style={{ width: '250px' }}>Delivery Date</TableCell>
               <TableCell className="table-header-cell">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {orders.map((order) => (
-              <TableRow key={order.id} className="table-row">
+              <TableRow key={order.id} className="table-row" style={{ width: '80%' }}>
                 <TableCell>{order.customer_name}</TableCell>
                 <TableCell>{new Date(order.order_date).toLocaleDateString()}</TableCell>
                 <TableCell>Ksh {order.total_price}</TableCell>

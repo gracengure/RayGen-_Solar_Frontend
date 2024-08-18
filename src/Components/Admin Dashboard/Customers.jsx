@@ -5,6 +5,7 @@ import {
 import { Edit, Delete, Search } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import './customers.css';
+import Sidebar from './Sidebar';
 
 const Customers = () => {
   const [customers, setCustomers] = useState([]);
@@ -142,7 +143,8 @@ const Customers = () => {
   }
 
   return (
-    <div className="customers-page">
+    <div className="customers-page" style={{ width: '100%' }}>
+      <Sidebar />
       <div className="header">
         <Typography variant="h4" sx={{ color: 'dodgerblue' }} gutterBottom>
           Customers
