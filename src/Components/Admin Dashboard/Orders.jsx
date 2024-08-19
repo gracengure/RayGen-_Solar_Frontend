@@ -33,7 +33,7 @@ const Orders = () => {
   const fetchOrders = async () => {
     const token = localStorage.getItem("access_token");
     try {
-      const response = await fetch('http://127.0.0.1:5000/orders', {
+      const response = await fetch('https://raygen-solar-backend-jmfq.onrender.com/orders', {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -55,7 +55,7 @@ const Orders = () => {
   // Function to search orders by status
   const searchOrders = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/orders/status?status=${searchStatus}`, {
+      const response = await fetch(`https://raygen-solar-backend-jmfq.onrender.com/orders/status?status=${searchStatus}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
@@ -99,7 +99,7 @@ const Orders = () => {
   const handleSubmit = async () => {
     const token = localStorage.getItem("access_token");
     try {
-      const response = await fetch(`http://127.0.0.1:5000/orders/${selectedOrder.id}`, {
+      const response = await fetch(`https://raygen-solar-backend-jmfq.onrender.com/orders/${selectedOrder.id}`, {
         method: "PUT",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -128,7 +128,7 @@ const Orders = () => {
   const handleDeleteClick = async (orderId) => {
     const token = localStorage.getItem("access_token");
     try {
-      const response = await fetch(`http://127.0.0.1:5000/orders/${orderId}`, {
+      const response = await fetch(`https://raygen-solar-backend-jmfq.onrender.com/orders/${orderId}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`,

@@ -44,7 +44,7 @@ const SignInForm = ({ handleClose }) => {
       return;
     }
   
-    const endpoint = "http://127.0.0.1:5000/login/email";
+    const endpoint = "https://raygen-solar-backend-jmfq.onrender.com/login/email";
     const body = JSON.stringify({
       email: formData.email,
       password: formData.password,

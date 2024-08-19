@@ -8,7 +8,7 @@ function ProductsSpecs() {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/products/${productId}`)
+    fetch(`https://raygen-solar-backend-jmfq.onrender.com/products/${productId}`)
       .then((response) => response.json())
       .then((data) => {
         setProduct(data);

@@ -36,7 +36,7 @@ function App() {
   const handleSearch = async (name, category) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:5000/products/search?name=${name}&category=${category}`
+        `https://raygen-solar-backend-jmfq.onrender.com/products/search?name=${name}&category=${category}`
       );
       const data = await response.json();
       setSearchResults(data);

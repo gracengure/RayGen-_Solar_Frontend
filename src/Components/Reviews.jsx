@@ -25,7 +25,7 @@ function Reviews({ productId }) {
   const [jwtToken, setJwtToken] = useState(localStorage.getItem('token')); // Fetch JWT from localStorage
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/products/${productId}/reviews`)
+    fetch(`https://raygen-solar-backend-jmfq.onrender.com/products/${productId}/reviews`)
       .then((response) => response.json())
       .then((data) => {
         setReviews(data);
@@ -46,7 +46,7 @@ function Reviews({ productId }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://127.0.0.1:5000/reviews", {
+    fetch("https://raygen-solar-backend-jmfq.onrender.com/reviews", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +83,7 @@ function Reviews({ productId }) {
   };
 
   const handleDelete = (reviewId) => {
-    fetch(`http://127.0.0.1:5000/reviews/${reviewId}`, {
+    fetch(`https://raygen-solar-backend-jmfq.onrender.com/reviews/${reviewId}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${jwtToken}`

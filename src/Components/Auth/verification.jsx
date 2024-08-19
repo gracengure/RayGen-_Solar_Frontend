@@ -21,7 +21,7 @@ const Verification = () => {
 
     const handleVerify = async () => {
         try {
-            const response = await axios.post('http://127.0.0.1:5000/verify', 
+            const response = await axios.post('https://raygen-solar-backend-jmfq.onrender.com/verify', 
                 { email, code }, 
                 {
                   headers: {

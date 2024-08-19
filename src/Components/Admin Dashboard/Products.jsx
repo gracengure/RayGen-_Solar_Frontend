@@ -36,7 +36,7 @@ const Products = () => {
 
   const fetchProducts = async (category = '') => {
     try {
-      const url = category ? `http://127.0.0.1:5000/products/category?category=${category}` : 'http://127.0.0.1:5000/products';
+      const url = category ? `https://raygen-solar-backend-jmfq.onrender.com/products/category?category=${category}` : 'https://raygen-solar-backend-jmfq.onrender.com/products';
       const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
@@ -89,7 +89,7 @@ const Products = () => {
 
   const handleUpdate = () => {
     const token = localStorage.getItem("access_token");
-    fetch(`http://127.0.0.1:5000/products/${selectedProduct.id}`, {
+    fetch(`https://raygen-solar-backend-jmfq.onrender.com/products/${selectedProduct.id}`, {
       method: "PUT",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -119,7 +119,7 @@ const Products = () => {
   const handleDelete = async (productId) => {
     const token = localStorage.getItem("access_token");
     try {
-      const response = await fetch(`http://127.0.0.1:5000/products/${productId}`, {
+      const response = await fetch(`https://raygen-solar-backend-jmfq.onrender.com/products/${productId}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -147,7 +147,7 @@ const Products = () => {
 
   const handleAddProduct = () => {
     const token = localStorage.getItem("access_token");
-    fetch('http://127.0.0.1:5000/products', {
+    fetch('https://raygen-solar-backend-jmfq.onrender.com/products', {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,

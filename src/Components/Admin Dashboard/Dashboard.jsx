@@ -23,7 +23,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Fetch total customers
-        const customerResponse = await fetch('http://127.0.0.1:5000/users', {
+        const customerResponse = await fetch('https://raygen-solar-backend-jmfq.onrender.com/users', {
           method: 'GET',
           headers: {
             "Authorization": `Bearer ${token}`
@@ -38,7 +38,7 @@ const Dashboard = () => {
         setTotalCustomers(customerData.length); // Adjust based on actual data structure
         
         // Fetch total products
-        const productResponse = await fetch('http://127.0.0.1:5000/products', {
+        const productResponse = await fetch('https://raygen-solar-backend-jmfq.onrender.com/products', {
           method: 'GET',
           headers: {
             "Authorization": `Bearer ${token}`
@@ -53,7 +53,7 @@ const Dashboard = () => {
         setTotalProducts(productData.length); 
         
         // Fetch total orders if needed
-        const orderResponse = await fetch('http://127.0.0.1:5000/orders', {
+        const orderResponse = await fetch('https://raygen-solar-backend-jmfq.onrender.com/orders', {
           method: 'GET',
           headers: {
             "Authorization": `Bearer ${token}`

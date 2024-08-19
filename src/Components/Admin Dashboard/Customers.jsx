@@ -49,7 +49,7 @@ const Customers = () => {
       }
 
       try {
-        const data = await fetchData('http://127.0.0.1:5000/users', {
+        const data = await fetchData('https://raygen-solar-backend-jmfq.onrender.com/users', {
           headers: {
             "Authorization": `Bearer ${token}`
           }
@@ -89,7 +89,7 @@ const Customers = () => {
   const handleUpdate = async () => {
     const token = localStorage.getItem("access_token");
     try {
-      await fetchData(`http://127.0.0.1:5000/users/${selectedCustomer.user_id}`, {
+      await fetchData(`https://raygen-solar-backend-jmfq.onrender.com/users/${selectedCustomer.user_id}`, {
         method: "PUT",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -111,7 +111,7 @@ const Customers = () => {
     const token = localStorage.getItem("access_token");
     try {
       console.log(`Attempting to delete customer with ID: ${customerId}`);
-      const response = await fetch(`http://127.0.0.1:5000/users/${customerId}`, {
+      const response = await fetch(`https://raygen-solar-backend-jmfq.onrender.com/users/${customerId}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`,
