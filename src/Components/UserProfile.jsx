@@ -51,7 +51,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5000/user/profile', {
+        const response = await fetch('https://raygen-solar-backend-jmfq.onrender.com/user/profile', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ const UserProfile = () => {
 
   const handleProfileUpdate = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/user/profile/update', {
+      const response = await fetch('https://raygen-solar-backend-jmfq.onrender.com/user/profile/update', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ const UserProfile = () => {
     }
   
     try {
-      const response = await fetch('http://127.0.0.1:5000/user/change-password', {
+      const response = await fetch('https://raygen-solar-backend-jmfq.onrender.com/user/change-password', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
