@@ -13,7 +13,7 @@ function App() {
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/products")
+    fetch("https://raygen-solar-backend-jmfq.onrender.com/products")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
